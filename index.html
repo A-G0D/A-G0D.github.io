@@ -1,597 +1,332 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Abhay — A-G0D</title>
-<meta name="description" content="A-G0D — Abhay Godavarthy — portfolio, projects, and experiments." />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A-G0D</title>
 
 <style>
-  /* === CONFIGURABLE THEME VARIABLES === */
-  :root{
-    --bg:#0b0b0c;
-    --panel: rgba(255,255,255,0.04);
-    --muted:#888888;
-    --accent:#00ff9d;
-    --glass-border: rgba(255,255,255,0.06);
-    --glass-contrast: rgba(255,255,255,0.03);
-    --card-radius: 14px;
-    --text:#e6e7e8;
-    --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New", monospace;
-  }
+/* ------------------ Global ------------------ */
+body {
+    margin: 0;
+    background: #0a0a0a;
+    color: #eaeaea;
+    font-family: "JetBrains Mono", monospace;
+    overflow-x: hidden;
+}
 
-  /* neon theme toggled by .neon on body */
-  .neon {
-    --bg: #050405;
-    --panel: rgba(0,255,157,0.03);
-    --muted: #b8f7dd;
-    --accent: #00ff9d;
-    --glass-border: rgba(0,255,157,0.12);
-    --glass-contrast: rgba(255,255,255,0.02);
-    --text: #dfffe8;
-  }
+/* Smooth fade-in per section */
+.section {
+    padding: 120px 12%;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadein 1s ease forwards;
+}
 
-  /* base reset */
-  *{box-sizing:border-box}
-  html,body{height:100%;margin:0;background:var(--bg);color:var(--text);font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;overflow:hidden}
-  a{color:var(--accent);text-decoration:none}
+@keyframes fadein {
+    to { opacity: 1; transform: translateY(0); }
+}
 
-  /* container and layout */
-  #app{position:relative;width:100%;height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
-  main{position:relative;z-index:30;max-width:1100px;padding:40px;width:100%;display:grid;grid-template-columns:1fr 380px;gap:32px;align-items:start}
-  @media (max-width:980px){ main{grid-template-columns:1fr;padding:24px; } }
+/* ------------------ Navbar ------------------ */
+nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    padding: 18px 12%;
+    display: flex;
+    justify-content: space-between;
+    backdrop-filter: blur(10px);
+    background: rgba(10,10,10,0.4);
+    z-index: 1000;
+    border-bottom: 1px solid #111;
+}
 
-  /* hero column */
-  .hero{
-    padding:30px;
-  }
-  .hero-card{
-    background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-    border-radius:var(--card-radius);
-    padding:32px;
-    backdrop-filter: blur(6px) saturate(1.05);
-    border:1px solid var(--glass-border);
-    box-shadow: 0 6px 30px rgba(0,0,0,0.6);
-  }
-  .topline{font-family:var(--mono); color:var(--muted); font-size:13px; letter-spacing:1px}
-  .title{font-family:var(--mono); font-weight:700; font-size:48px; margin:8px 0 10px; white-space:nowrap; overflow:hidden}
-  .subtitle{color:var(--muted); margin-bottom:18px; font-size:15px}
-  .cursor{display:inline-block;width:10px;height:22px;background:var(--accent);vertical-align:middle;margin-left:8px;animation:blink 700ms steps(2) infinite}
-  @keyframes blink{50%{opacity:0}}
+nav a {
+    color: #aaa;
+    text-decoration: none;
+    margin-left: 25px;
+    font-size: 15px;
+    transition: color .2s;
+}
+nav a:hover { color: #00FF9D; }
 
-  /* typing small line style */
-  .slow-typing{font-family:var(--mono); color:#bdbdbd; font-size:14px; margin-top:12px}
+/* ------------------ Starfield ------------------ */
+#starfield {
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    pointer-events: none;
+}
 
-  /* right column (sidebar) */
-  .sidebar{position:relative}
-  .glass{
-    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-    border-radius:12px;padding:18px;border:1px solid var(--glass-border);backdrop-filter: blur(6px);
-  }
+/* ------------------ Parallax layers ------------------ */
+.parallax-layer {
+    position: fixed;
+    inset: 0;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: -1;
+    opacity: 0.18;
+    pointer-events: none;
+}
 
-  /* website button (glassmorphic) */
-  .site-button{
-    display:flex;align-items:center;justify-content:center;gap:12px;padding:12px 14px;border-radius:12px;
-    border:1px solid rgba(255,255,255,0.04);cursor:pointer;margin-top:18px;
-    transition: transform .18s cubic-bezier(.2,.9,.2,1), box-shadow .18s, background .18s;
-    background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));
-  }
-  .site-button:hover{transform:translateY(-4px);box-shadow:0 8px 30px rgba(0,0,0,0.6)}
-  .site-thumb{width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#0075ff);display:flex;align-items:center;justify-content:center;font-weight:700;color:#001}
+/* Optional: add additional parallax layers */
+/* .parallax-layer-2 { background-image: url(...); } */
 
-  /* project cards */
-  .projects{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}
-  @media (max-width:980px){ .projects{grid-template-columns:1fr} }
-  .proj{
-    perspective:900px;
-    border-radius:10px;
-  }
-  .proj > .inner{
-    transform-style:preserve-3d;transition:transform .6s cubic-bezier(.2,.9,.2,1);
-    min-height:90px;padding:12px;border-radius:10px;background:linear-gradient(180deg,rgba(255,255,255,0.015),rgba(255,255,255,0.01));
-    border:1px solid var(--glass-border);
-  }
-  .proj:hover > .inner{transform:rotateY(8deg) translateY(-6px) scale(1.01)}
-  .proj .title{font-size:14px;font-weight:700;margin-bottom:6px;color:var(--text)}
-  .proj .desc{font-size:12px;color:var(--muted)}
+/* ------------------ Home Section ------------------ */
+#home h1 {
+    font-size: 64px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
 
-  /* terminal about box */
-  .terminal{
-    margin-top:18px;padding:14px;border-radius:10px;background:#030303;border:1px solid rgba(255,255,255,0.03);
-    font-family:var(--mono);font-size:13px;color:#b9fbd9;line-height:1.45
-  }
-  .term-line{opacity:0.95}
+#cursor {
+    display: inline-block;
+    width: 10px;
+    background: #00FF9D;
+    margin-left: 5px;
+    animation: blink 0.6s steps(1) infinite;
+}
+@keyframes blink {
+    50% { opacity: 0; }
+}
 
-  /* small util */
-  .muted{color:var(--muted)}
-  .badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+/* ------------------ Terminal ------------------ */
+#terminal {
+    background: #000;
+    padding: 25px;
+    border-radius: 12px;
+    font-size: 14px;
+    margin-top: 40px;
+    box-shadow: 0 0 25px rgba(0,255,120,0.15);
+}
 
-  /* navbar */
-  .nav{
-    position:fixed;left:18px;top:18px;z-index:60;padding:8px 12px;border-radius:12px;background:linear-gradient(180deg,rgba(0,0,0,0.45),rgba(0,0,0,0.2));
-    border:1px solid rgba(255,255,255,0.03);backdrop-filter:blur(4px);
-    display:flex;gap:10px;align-items:center;font-family:var(--mono);font-size:13px
-  }
-  .nav button{background:none;border:0;color:var(--muted);cursor:pointer;padding:6px 8px;border-radius:8px}
-  .nav button:hover{color:var(--text);background:rgba(255,255,255,0.02)}
+#term-output {
+    min-height: 180px;
+    white-space: pre-wrap;
+}
 
-  /* command palette */
-  .cmd {
-    position:fixed;left:50%;top:18%;transform:translateX(-50%);min-width:480px;max-width:90%;z-index:1000;
-    background:linear-gradient(180deg,rgba(10,10,10,0.96),rgba(10,10,10,0.92));padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);
-    display:none;box-shadow:0 9px 40px rgba(0,0,0,0.6)
-  }
-  .cmd input{width:100%;padding:10px;border-radius:8px;border:0;background:rgba(255,255,255,0.02);color:var(--text);font-family:var(--mono);font-size:15px}
+#term-input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #00FF9D;
+    font-size: 14px;
+}
 
-  /* idle floating logo */
-  .logo {
-    position:fixed;right:18px;bottom:18px;z-index:5;width:68px;height:68px;border-radius:12px;
-    display:flex;align-items:center;justify-content:center;font-weight:700;font-family:var(--mono);font-size:14px;
-    background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-    border:1px solid var(--glass-border);backdrop-filter: blur(6px);color:var(--text);
-  }
-
-  /* stars canvas overlay */
-  #bg-canvas{position:fixed;inset:0;z-index:1;pointer-events:none}
-
-  /* subtle footer info */
-  footer{position:fixed;left:50%;bottom:10px;transform:translateX(-50%);z-index:60;color:var(--muted);font-size:12px;font-family:var(--mono)}
+/* ------------------ Projects Placeholder ------------------ */
+.project-card {
+    padding: 20px;
+    border: 1px solid #222;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    background: #111;
+    transition: transform .2s;
+}
+.project-card:hover { transform: translateY(-4px); }
 </style>
 </head>
 <body>
-<div id="app">
-  <!-- background canvas for starfield + parallax layers -->
-  <canvas id="bg-canvas"></canvas>
 
-  <!-- navbar -->
-  <nav class="nav" aria-label="Site navigation">
-    <button id="themeToggle" title="Toggle neon theme (Konami also toggles)">Theme</button>
-    <button id="cmdToggle" title="Open command palette (Ctrl+K)">Cmd</button>
-    <button id="focusHome" title="Focus hero (press 1)">Home</button>
-    <button id="focusProjects" title="Focus projects (press 2)">Projects</button>
-  </nav>
+<!-- ========================================================= -->
+<!-- NAV BAR -->
+<!-- ========================================================= -->
+<nav>
+    <div style="font-weight:700;color:#00FF9D;">A-G0D</div>
+    <div>
+        <a href="#home">Home</a>
+        <a href="#terminal-section">Terminal</a>
+        <a href="#projects">Projects</a>
+    </div>
+</nav>
 
-  <!-- command palette -->
-  <div class="cmd" id="cmd">
-    <input id="cmdInput" placeholder="Type a command (examples: projects, about, theme) — Esc to close" />
-  </div>
+<!-- ========================================================= -->
+<!-- STARFIELD -->
+<!-- ========================================================= -->
+<canvas id="starfield"></canvas>
 
-  <main>
-    <!-- HERO (left) -->
-    <section class="hero">
-      <div class="hero-card">
-        <div class="topline">A-G0D — Abhay Godavarthy</div>
-        <h1 class="title" id="typedTitle" aria-live="polite"></h1><span class="cursor" id="heroCursor" aria-hidden="true"></span>
-        <p class="subtitle">High school developer — building tools, simulations, and creative UIs.</p>
-
-        <div class="slow-typing" id="slowTyping" aria-hidden="true"></div>
-
-        <div style="display:flex;gap:12px;margin-top:18px;flex-wrap:wrap;">
-          <a class="site-button" id="visitSite" href="https://A-G0D.github.io" target="_blank" rel="noopener">
-            <div class="site-thumb">AG</div>
-            <div style="text-align:left">
-              <div style="font-weight:700">A-G0D.github.io</div>
-              <div style="font-size:12px;color:var(--muted)">Personal portfolio</div>
-            </div>
-          </a>
-
-          <a class="site-button" id="clubLink" href="http://slhscs-club.github.io/club" target="_blank" rel="noopener" style="width:auto">
-            <div style="font-size:13px;color:var(--muted)">Co-author of SLHS CS Club</div>
-          </a>
-        </div>
-
-        <div class="badges" aria-hidden="true">
-          <!-- simple badges using shields.io -->
-          <img src="https://img.shields.io/badge/Python-3670A0?style=flat-square&logo=python&logoColor=ffdd54" alt="Python">
-          <img src="https://img.shields.io/badge/Java-ED8B00?style=flat-square&logo=java&logoColor=white" alt="Java">
-          <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white" alt="HTML">
-          <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white" alt="CSS">
-          <img src="https://img.shields.io/badge/JS-F7DF1E?style=flat-square&logo=javascript&logoColor=black" alt="JS">
-          <img src="https://img.shields.io/badge/C%23-239120?style=flat-square&logo=csharp&logoColor=white" alt="C#">
-          <img src="https://img.shields.io/badge/Rust-000000?style=flat-square&logo=rust&logoColor=white" alt="Rust">
-          <img src="https://img.shields.io/badge/SQL-336791?style=flat-square&logo=postgresql&logoColor=white" alt="SQL">
-        </div>
-
-        <div class="terminal" id="terminal" tabindex="0" aria-label="Terminal about">
-          <div class="term-line" id="termLine">> booting..</div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- RIGHT SIDEBAR -->
-    <aside class="sidebar">
-      <div class="glass">
-        <div style="display:flex;align-items:center;justify-content:space-between">
-          <div style="font-weight:700">Stats & Activity</div>
-          <div class="muted" style="font-size:12px">live</div>
-        </div>
-
-        <div style="margin-top:12px;display:flex;gap:10px;align-items:center;flex-direction:column">
-          <img src="https://github-readme-stats.vercel.app/api?username=A-G0D&show_icons=true&theme=tokyonight&hide_border=true" style="width:100%;border-radius:8px" alt="github stats">
-          <img src="https://github-readme-streak-stats.herokuapp.com/?user=A-G0D&theme=tokyonight&hide_border=true" style="width:100%;border-radius:8px;margin-top:10px" alt="streak">
-          <img src="https://github-readme-activity-graph.vercel.app/graph?username=A-G0D&theme=react-dark&hide_border=true" style="width:100%;border-radius:8px;margin-top:10px" alt="activity">
-        </div>
-
-        <div style="margin-top:12px;display:flex;justify-content:space-between;gap:8px;align-items:center">
-          <div style="font-size:13px;color:var(--muted)">Quick Links</div>
-          <div style="display:flex;gap:8px">
-            <button class="site-button" onclick="location.href='https://github.com/A-G0D'">GitHub</button>
-          </div>
-        </div>
-
-        <div class="projects" id="projects">
-          <div class="proj"><div class="inner"><div class="title">Project Alpha</div><div class="desc">Sandbox: simulations & demos.</div></div></div>
-          <div class="proj"><div class="inner"><div class="title">Discord Logger</div><div class="desc">Message archival + visualization.</div></div></div>
-          <div class="proj"><div class="inner"><div class="title">Browser (CEF)</div><div class="desc">Custom browser experiments.</div></div></div>
-          <div class="proj"><div class="inner"><div class="title">TTR Online</div><div class="desc">Ticket-to-Ride web game prototype.</div></div></div>
-        </div>
-
-      </div>
-    </aside>
-  </main>
-
-  <!-- logo that floats when idle -->
-  <div class="logo" id="logo">A-G0D</div>
-
-  <footer>Press <span style="font-family:var(--mono)">Ctrl+K</span> to open command palette • Konami code reveals neon theme</footer>
+<!-- Parallax layer (dark abstract grid style) -->
+<div class="parallax-layer" 
+     style="background-image:url('https://i.imgur.com/xLX1j1D.png');">
 </div>
 
+<!-- ========================================================= -->
+<!-- HOME -->
+<!-- ========================================================= -->
+<section class="section" id="home">
+    <h1>
+        A-G0D<span id="cursor"></span>
+    </h1>
+
+    <p style="max-width:650px;line-height:1.6;font-size:17px;">
+        Developer. Builder. Automated Systems. High-efficiency code.  
+        Scroll down or use the terminal to explore.
+    </p>
+</section>
+
+<!-- ========================================================= -->
+<!-- TERMINAL -->
+<!-- ========================================================= -->
+<section class="section" id="terminal-section">
+    <h2>Command Interface</h2>
+
+    <div id="terminal">
+        <div id="term-output"></div>
+        <div>
+            <span style="color:#00FF9D">$ </span>
+            <input id="term-input" autofocus autocomplete="off">
+        </div>
+    </div>
+</section>
+
+<!-- ========================================================= -->
+<!-- PROJECTS -->
+<!-- ========================================================= -->
+<section class="section" id="projects">
+    <h2>Projects</h2>
+
+    <div class="project-card">
+        <b>Discord Message Logger</b>  
+        Multi-API integration, live fetch, JSON structuring, front-end visualizer.
+    </div>
+
+    <div class="project-card">
+        <b>GIS Region Bounding Tool</b>  
+        Converts addresses → coordinates → bounding box → in-region flags.
+    </div>
+
+    <div class="project-card">
+        <b>Browser Engine</b>  
+        Python CEF-powered browser with full permissions + tab handling.
+    </div>
+</section>
+
 <script>
-/* =========================
-   Starfield + Parallax + Comet
-   ========================= */
+/* ============================================================
+   STARFIELD SYSTEM
+============================================================ */
+const canvas = document.getElementById("starfield");
+const ctx = canvas.getContext("2d");
 
-(() => {
-  const canvas = document.getElementById('bg-canvas');
-  const ctx = canvas.getContext('2d', { alpha: true });
-  let DPR = Math.max(1, window.devicePixelRatio || 1);
-  let W = canvas.width = innerWidth * DPR;
-  let H = canvas.height = innerHeight * DPR;
-  canvas.style.width = innerWidth + 'px';
-  canvas.style.height = innerHeight + 'px';
+let w, h;
+function resize() {
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+}
+resize();
+window.onresize = resize;
 
-  const config = {
-    starCount: 140,
-    starSize: [0.6, 2.2],
-    starSpeed: 0.02,
-    flicker: 0.02,
-    mouseInfluence: 0.18,
-    parallaxLayers: 3,
-    cometChance: 0.003
-  };
-
-  let stars = [];
-  let mouse = { x: 0, y: 0, vx:0, vy:0, lastMove: Date.now() };
-  let last = performance.now();
-
-  function resetSize(){
-    DPR = Math.max(1, window.devicePixelRatio || 1);
-    W = canvas.width = innerWidth * DPR;
-    H = canvas.height = innerHeight * DPR;
-    canvas.style.width = innerWidth + 'px';
-    canvas.style.height = innerHeight + 'px';
-  }
-  addEventListener('resize', resetSize);
-
-  function rand(min,max){ return Math.random()*(max-min)+min }
-
-  // create star positions with layer depth
-  for(let i=0;i<config.starCount;i++){
+const stars = [];
+for (let i = 0; i < 350; i++) {
     stars.push({
-      x: Math.random()*W,
-      y: Math.random()*H,
-      z: Math.random(), // depth 0..1
-      size: rand(config.starSize[0], config.starSize[1]),
-      flick: Math.random(),
-      vx: 0, vy:0
+        x: Math.random() * w,
+        y: Math.random() * h,
+        z: Math.random() * 1.5 + 0.2
     });
-  }
+}
 
-  // comet generator
-  let comets = [];
-  function maybeSpawnComet(){
-    if(Math.random() < config.cometChance){
-      const size=rand(1.4,3.4)*DPR;
-      comets.push({
-        x: Math.random()*W*0.6,
-        y: -50*DPR,
-        vx: rand(-0.2,0.2)*DPR,
-        vy: rand(0.9,1.5)*DPR,
-        life: 0,
-        maxLife: rand(800,1600),
-        size
-      });
-    }
-  }
+document.addEventListener("mousemove", e => {
+    const dx = (e.clientX - w/2) * 0.0008;
+    const dy = (e.clientY - h/2) * 0.0008;
+    stars.forEach(s => {
+        s.x += dx * (2 - s.z);
+        s.y += dy * (2 - s.z);
+    });
+});
 
-  function draw(now){
-    const dt = Math.min(60, now - last);
-    last = now;
-    ctx.clearRect(0,0,W,H);
+function starLoop() {
+    ctx.clearRect(0,0,w,h);
+    ctx.fillStyle = "white";
+    stars.forEach(s => {
+        ctx.fillRect(s.x, s.y, s.z, s.z);
+    });
+    requestAnimationFrame(starLoop);
+}
+starLoop();
 
-    // subtle background gradient
-    const g = ctx.createLinearGradient(0,0,0,H);
-    g.addColorStop(0, 'rgba(10,10,12,1)');
-    g.addColorStop(1, 'rgba(2,2,3,1)');
-    ctx.fillStyle = g;
-    ctx.fillRect(0,0,W,H);
 
-    // parallax origin (center) with mouse opposite movement:
-    const cx = (mouse.x || innerWidth/2) * DPR;
-    const cy = (mouse.y || innerHeight/2) * DPR;
+/* ============================================================
+   TERMINAL SYSTEM
+============================================================ */
+const termOut = document.getElementById("term-output");
+const termIn = document.getElementById("term-input");
 
-    // stars (move opposite the mouse to create depth)
-    for(let s of stars){
-      // depth-scaled movement opposite mouse delta
-      const depth = 0.3 + s.z*0.9; // 0.3..1.2
-      const dx = ( (W/2 - cx) * config.mouseInfluence * (1-depth) ) * 0.0009;
-      const dy = ( (H/2 - cy) * config.mouseInfluence * (1-depth) ) * 0.0009;
+function print(t) {
+    termOut.textContent += t + "\n";
+    termOut.scrollTop = termOut.scrollHeight;
+}
 
-      s.x += dx * dt * (0.4 + depth*0.6) + s.vx*dt*0.02;
-      s.y += dy * dt * (0.4 + depth*0.6) + s.vy*dt*0.02;
+print("A-G0D interactive shell");
+print("Type 'help' for commands.\n");
 
-      // wrap
-      if(s.x < -10*DPR) s.x += W + 20*DPR;
-      if(s.x > W + 10*DPR) s.x -= W + 20*DPR;
-      if(s.y < -10*DPR) s.y += H + 20*DPR;
-      if(s.y > H + 10*DPR) s.y -= H + 20*DPR;
+const commands = {
+    help: () => {
+        return "Commands:\n" +
+               "help            - list commands\n" +
+               "about           - who is A-G0D\n" +
+               "projects        - show project list\n" +
+               "theme           - toggle dark/light\n" +
+               "echo [text]     - print text\n" +
+               "clear           - clear terminal\n" +
+               "ls              - fake directory\n" +
+               "cd [x]          - fake navigation\n";
+    },
 
-      // flicker
-      s.flick += (Math.random()-0.5)*0.06;
-      const alpha = 0.6 + 0.4*Math.sin(s.flick*6);
+    about: () => {
+        return "A-G0D: Developer, automation engineer, systems builder.";
+    },
 
-      // draw star
-      ctx.beginPath();
-      const r = s.size * (0.6 + 0.6*(1 - s.z));
-      ctx.fillStyle = `rgba(255,255,255,${alpha})`;
-      ctx.arc(s.x, s.y, Math.max(0.2, r*DPR/2), 0, Math.PI*2);
-      ctx.fill();
-    }
+    projects: () => {
+        return "- Discord Logger\n- GIS Bounding Tool\n- Custom Browser Engine\n";
+    },
 
-    // comets
-    for(let i=comets.length-1;i>=0;i--){
-      const c=comets[i];
-      c.x += c.vx*dt; c.y += c.vy*dt; c.life += dt;
-      const p = c.life / c.maxLife;
-      if(p>1){ comets.splice(i,1); continue }
-      // streak
-      const grad = ctx.createLinearGradient(c.x, c.y, c.x - c.vx*20*c.size, c.y - c.vy*20*c.size);
-      grad.addColorStop(0, 'rgba(0,255,157,0.95)');
-      grad.addColorStop(1, 'rgba(0,255,157,0.02)');
-      ctx.fillStyle = grad;
-      ctx.beginPath();
-      ctx.ellipse(c.x, c.y, c.size*8*(1-p), c.size*2*(1-p), Math.atan2(c.vy,c.vx), 0, Math.PI*2);
-      ctx.fill();
-
-      // head
-      ctx.beginPath();
-      ctx.fillStyle = `rgba(0,255,157,${0.9*(1-p)})`;
-      ctx.arc(c.x, c.y, c.size*1.6, 0, Math.PI*2);
-      ctx.fill();
-    }
-
-    // subtle vignette
-    ctx.beginPath();
-    const vg = ctx.createRadialGradient(W/2,H/2,Math.min(W,H)/4,W/2,H/2,Math.max(W,H));
-    vg.addColorStop(0, 'rgba(0,0,0,0)');
-    vg.addColorStop(1, 'rgba(0,0,0,0.45)');
-    ctx.fillStyle = vg;
-    ctx.fillRect(0,0,W,H);
-
-    // occasionally spawn comet
-    if(Math.random() < 0.004) maybeSpawnComet();
-
-    requestAnimationFrame(draw);
-  }
-
-  // mouse handling (throttled)
-  let lastMove = 0;
-  addEventListener('mousemove', (e)=>{
-    const now = Date.now();
-    mouse.x = e.clientX; mouse.y = e.clientY; mouse.lastMove = now;
-    if(now - lastMove > 16){
-      lastMove = now;
-      // add slight velocity for particle repel
-      mouse.vx = e.movementX || 0;
-      mouse.vy = e.movementY || 0;
-    }
-  });
-
-  // touch fallback
-  addEventListener('touchmove', (e)=> {
-    const t = e.touches[0];
-    mouse.x = t.clientX; mouse.y = t.clientY;
-  }, {passive:true});
-
-  // resize & start
-  requestAnimationFrame(draw);
-})();
-
-/* =========================
-   Hero typing + slow typing + terminal small animation
-   ========================= */
-(() => {
-  const titleEl = document.getElementById('typedTitle');
-  const cursor = document.getElementById('heroCursor');
-  const slowEl = document.getElementById('slowTyping');
-  const termLine = document.getElementById('termLine');
-  const logo = document.getElementById('logo');
-
-  const lines = ['Abhay Godavarthy', 'Student • Developer', 'Python | Java | C# | HTML | CSS | JS | Rust | SQL'];
-  let li = 0, ci = 0, typing=false;
-
-  function typeLoop(){
-    if(li >= lines.length) return; // stop
-    const line = lines[li];
-    typing = true;
-    if(ci < line.length){
-      titleEl.textContent += line.charAt(ci);
-      ci++;
-      setTimeout(typeLoop, 80); // hero typing speed
-    } else {
-      // next line after short pause
-      li++; ci = 0;
-      setTimeout(()=>{
-        // clear title and type next line but here we keep first line (name) — use only first line large
-        if(li === 1){
-          // do nothing; keep name visible and stop
+    theme: () => {
+        const b = document.body;
+        if (b.style.background === "white") {
+            b.style.background = "#0a0a0a";
+            b.style.color = "#eaeaea";
+            return "Switched to dark theme.";
+        } else {
+            b.style.background = "white";
+            b.style.color = "black";
+            return "Switched to light theme.";
         }
-        typing=false;
-      }, 500);
+    },
+
+    echo: (...txt) => txt.join(" "),
+
+    clear: () => {
+        termOut.textContent = "";
+        return "";
+    },
+
+    ls: () => {
+        return "home/  projects/  secrets/  index.html";
+    },
+
+    cd: (dir) => {
+        return "Permission denied (mock filesystem).";
     }
-  }
-  // start typed hero (only the first line is important)
-  typeLoop();
+};
 
-  // slow typing for "Visit my website" + url — very slow
-  const slowLines = ['Visit my website', 'A-G0D.github.io'];
-  (async function slowType(){
-    for(const l of slowLines){
-      let s='';
-      for(let i=0;i<l.length;i++){ s+=l[i]; slowEl.textContent = s; await new Promise(r=>setTimeout(r, 160)); }
-      await new Promise(r=>setTimeout(r, 700));
+termIn.addEventListener("keydown", e => {
+    if (e.key === "Enter") {
+        const raw = termIn.value.trim();
+        print("$ " + raw);
+        termIn.value = "";
+
+        const parts = raw.split(" ");
+        const cmd = parts[0];
+        const args = parts.slice(1);
+
+        if (commands[cmd]) {
+            const out = commands[cmd](...args);
+            if (out) print(out);
+        } else {
+            print("Unknown command: " + cmd);
+        }
     }
-  })();
-
-  // tiny terminal lines cycling
-  const tLines = [
-    '> loading modules: [ui,net,ai,ide]',
-    '> connecting to github... ok',
-    '> local experiments initialized',
-    '> welcome, Abhay — have a look around'
-  ];
-  let ti = 0;
-  setInterval(()=>{
-    termLine.textContent = tLines[ti % tLines.length];
-    ti++;
-  }, 2400);
-
-  // idle floating logo motion when no mouse for a bit
-  let lastMove = Date.now();
-  document.addEventListener('mousemove', ()=> lastMove = Date.now());
-  function floatLogo(){
-    const idle = (Date.now() - lastMove) > 4000;
-    if(idle){
-      logo.style.transform = `translateY(${Math.sin(Date.now()/800)*6}px) rotate(${Math.sin(Date.now()/1400)*3}deg)`;
-    } else {
-      logo.style.transform = 'translateY(0) rotate(0)';
-    }
-    requestAnimationFrame(floatLogo);
-  }
-  floatLogo();
-})();
-
-/* =========================
-   Keyboard shortcuts, command palette, nav
-   ========================= */
-
-(() => {
-  const cmd = document.getElementById('cmd');
-  const cmdInput = document.getElementById('cmdInput');
-  const cmdToggle = document.getElementById('cmdToggle');
-  const themeToggle = document.getElementById('themeToggle');
-
-  function openCmd(){
-    cmd.style.display = 'block';
-    cmdInput.focus();
-    cmdInput.select();
-  }
-  function closeCmd(){
-    cmd.style.display = 'none';
-    cmdInput.value = '';
-  }
-
-  cmdToggle.addEventListener('click', openCmd);
-  document.getElementById('themeToggle').addEventListener('click', ()=>{
-    document.body.classList.toggle('neon');
-  });
-
-  // ctrl+k open
-  document.addEventListener('keydown', (e)=>{
-    if((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k'){ e.preventDefault(); openCmd(); }
-    // numeric shortcuts
-    if(!e.ctrlKey && !e.metaKey){
-      if(e.key === '1') document.getElementById('visitSite').scrollIntoView({behavior:'smooth',block:'center'});
-      if(e.key === '2') document.getElementById('projects').scrollIntoView({behavior:'smooth',block:'center'});
-    }
-  });
-
-  cmdInput.addEventListener('keydown',(e)=>{
-    if(e.key === 'Escape'){ closeCmd(); }
-    if(e.key === 'Enter'){
-      const v = cmdInput.value.toLowerCase().trim();
-      if(v.includes('projects')) document.getElementById('projects').scrollIntoView({behavior:'smooth'});
-      if(v.includes('about') || v.includes('terminal')) document.getElementById('terminal').scrollIntoView({behavior:'smooth'});
-      if(v.includes('theme')) document.body.classList.toggle('neon');
-      closeCmd();
-    }
-  });
-})();
-
-/* =========================
-   Konami code for easter egg (↑ ↑ ↓ ↓ ← → ← → B A)
-   toggles neon theme + small confetti
-   ========================= */
-(() => {
-  const konami = [38,38,40,40,37,39,37,39,66,65];
-  let buffer = [];
-  addEventListener('keydown', (e)=>{
-    buffer.push(e.keyCode);
-    if(buffer.length > konami.length) buffer.shift();
-    if(buffer.join(',') === konami.join(',')){
-      document.body.classList.toggle('neon');
-      // small confetti: spawn bright comet-like streaks
-      for(let i=0;i<6;i++){
-        // create temporary comet visual as DOM element
-        const el = document.createElement('div');
-        el.style.position='fixed';
-        el.style.zIndex=9999;
-        el.style.left = (Math.random()*80+10)+'%';
-        el.style.top = (Math.random()*40+10)+'%';
-        el.style.width = '6px';
-        el.style.height = '6px';
-        el.style.borderRadius='3px';
-        el.style.background = 'linear-gradient(90deg,#00ff9d,#00aaff)';
-        el.style.transform = 'translateX(-50%)';
-        document.body.appendChild(el);
-        (function(u){
-          let t=0;
-          const anim = setInterval(()=>{
-            t++; el.style.transform = `translate(${t*8}px,${t*3}px) rotate(${t*10}deg)`;
-            if(t>40){ clearInterval(anim); el.remove(); }
-          },12);
-        })();
-      }
-      buffer = [];
-    }
-  });
-})();
-
-/* =========================
-   Simple magnetic button hover effect
-   ========================= */
-(() => {
-  const btns = document.querySelectorAll('.site-button');
-  btns.forEach(btn => {
-    btn.addEventListener('mousemove', (e)=>{
-      const r = btn.getBoundingClientRect();
-      const dx = (e.clientX - (r.left + r.width/2));
-      const dy = (e.clientY - (r.top + r.height/2));
-      btn.style.transform = `translate(${dx*0.06}px, ${dy*0.03}px)`;
-    });
-    btn.addEventListener('mouseleave', ()=> btn.style.transform = '');
-  });
-})();
-
-/* =========================
-   Simple accessibility: allow focusing sections
-   ========================= */
-(() => {
-  document.getElementById('focusHome').addEventListener('click', ()=> document.querySelector('.hero').scrollIntoView({behavior:'smooth'}));
-  document.getElementById('focusProjects').addEventListener('click', ()=> document.getElementById('projects').scrollIntoView({behavior:'smooth'}));
-})();
-
+});
 </script>
 </body>
 </html>
