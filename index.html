@@ -7,591 +7,1648 @@
 <meta name="description" content="A-G0D — Abhay Godavarthy — portfolio, projects, and experiments." />
 
 <style>
-  /* === CONFIGURABLE THEME VARIABLES === */
-  :root{
-    --bg:#0b0b0c;
-    --panel: rgba(255,255,255,0.04);
-    --muted:#888888;
-    --accent:#00ff9d;
-    --glass-border: rgba(255,255,255,0.06);
-    --glass-contrast: rgba(255,255,255,0.03);
-    --card-radius: 14px;
-    --text:#e6e7e8;
-    --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New", monospace;
-  }
+/* === CONFIGURABLE THEME VARIABLES === */
+:root{
+  --bg:#0b0b0c;
+  --panel: rgba(255,255,255,0.04);
+  --muted:#888888;
+  --accent:#00ff9d;
+  --glass-border: rgba(255,255,255,0.06);
+  --glass-contrast: rgba(255,255,255,0.03);
+  --card-radius: 14px;
+  --text:#e6e7e8;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New", monospace;
+}
 
-  /* neon theme toggled by .neon on body */
-  .neon {
-    --bg: #050405;
-    --panel: rgba(0,255,157,0.03);
-    --muted: #b8f7dd;
-    --accent: #00ff9d;
-    --glass-border: rgba(0,255,157,0.12);
-    --glass-contrast: rgba(255,255,255,0.02);
-    --text: #dfffe8;
-  }
+/* neon theme toggled by .neon on body */
+body.neon {
+  --bg: #050405;
+  --panel: rgba(0,255,157,0.03);
+  --muted: #b8f7dd;
+  --accent: #00ff9d;
+  --glass-border: rgba(0,255,157,0.12);
+  --glass-contrast: rgba(255,255,255,0.02);
+  --text: #dfffe8;
+}
 
-  /* base reset */
-  *{box-sizing:border-box}
-  html,body{height:100%;margin:0;background:var(--bg);color:var(--text);font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;overflow:hidden}
-  a{color:var(--accent);text-decoration:none}
+/* base reset */
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;background:var(--bg);color:var(--text);font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;overflow:hidden}
+a{color:var(--accent);text-decoration:none}
 
-  /* container and layout */
-  #app{position:relative;width:100%;height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
-  main{position:relative;z-index:30;max-width:1100px;padding:40px;width:100%;display:grid;grid-template-columns:1fr 380px;gap:32px;align-items:start}
-  @media (max-width:980px){ main{grid-template-columns:1fr;padding:24px; } }
+/* container */
+#app{position:relative;width:100%;height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden; cursor: default;}
 
-  /* hero column */
-  .hero{
-    padding:30px;
-  }
-  .hero-card{
-    background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-    border-radius:var(--card-radius);
-    padding:32px;
-    backdrop-filter: blur(6px) saturate(1.05);
-    border:1px solid var(--glass-border);
-    box-shadow: 0 6px 30px rgba(0,0,0,0.6);
-  }
-  .topline{font-family:var(--mono); color:var(--muted); font-size:13px; letter-spacing:1px}
-  .title{font-family:var(--mono); font-weight:700; font-size:48px; margin:8px 0 10px; white-space:nowrap; overflow:hidden}
-  .subtitle{color:var(--muted); margin-bottom:18px; font-size:15px}
-  .cursor{display:inline-block;width:10px;height:22px;background:var(--accent);vertical-align:middle;margin-left:8px;animation:blink 700ms steps(2) infinite}
-  @keyframes blink{50%{opacity:0}}
+/* layout */
+main{
+  position:relative;z-index:30;max-width:1100px;padding:40px;width:100%;
+  display:grid;grid-template-columns:1fr 380px;gap:32px;align-items:start
+}
+@media (max-width:980px){
+  main{grid-template-columns:1fr;padding:24px;}
+}
 
-  /* typing small line style */
-  .slow-typing{font-family:var(--mono); color:#bdbdbd; font-size:14px; margin-top:12px}
+/* hero */
+.hero{padding:30px;}
+.hero-card{
+  background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-radius:var(--card-radius);padding:32px;
+  backdrop-filter: blur(6px) saturate(1.05);
+  border:1px solid var(--glass-border);
+  box-shadow:0 6px 30px rgba(0,0,0,0.6)
+}
+.topline{font-family:var(--mono);color:var(--muted);font-size:13px;letter-spacing:1px}
+.title{font-family:var(--mono);font-weight:700;font-size:48px;margin:8px 0 10px;white-space:nowrap;overflow:hidden}
+.subtitle{color:var(--muted);margin-bottom:18px;font-size:15px}
+.cursor{display:inline-block;width:10px;height:22px;background:var(--accent);vertical-align:middle;margin-left:8px;animation:blink 700ms steps(2) infinite}
+@keyframes blink{50%{opacity:0}}
+.slow-typing{font-family:var(--mono);color:#bdbdbd;font-size:14px;margin-top:12px}
 
-  /* right column (sidebar) */
-  .sidebar{position:relative}
-  .glass{
-    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-    border-radius:12px;padding:18px;border:1px solid var(--glass-border);backdrop-filter: blur(6px);
-  }
+/* sidebar */
+.sidebar{position:relative}
+.glass{
+  background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-radius:12px;padding:18px;border:1px solid var(--glass-border);backdrop-filter: blur(6px);
+}
 
-  /* website button (glassmorphic) */
-  .site-button{
-    display:flex;align-items:center;justify-content:center;gap:12px;padding:12px 14px;border-radius:12px;
-    border:1px solid rgba(255,255,255,0.04);cursor:pointer;margin-top:18px;
-    transition: transform .18s cubic-bezier(.2,.9,.2,1), box-shadow .18s, background .18s;
-    background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));
-  }
-  .site-button:hover{transform:translateY(-4px);box-shadow:0 8px 30px rgba(0,0,0,0.6)}
-  .site-thumb{width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#0075ff);display:flex;align-items:center;justify-content:center;font-weight:700;color:#001}
+/* site button */
+.site-button{
+  display:flex;align-items:center;justify-content:center;gap:12px;padding:12px 14px;border-radius:12px;
+  border:1px solid rgba(255,255,255,0.04);cursor:pointer;margin-top:18px;
+  transition:transform .18s cubic-bezier(.2,.9,.2,1), box-shadow .18s, background .18s;
+  background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));
+}
+.site-button:hover{transform:translateY(-4px);box-shadow:0 8px 30px rgba(0,0,0,0.6)}
+.site-thumb{width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#0075ff);display:flex;align-items:center;justify-content:center;font-weight:700;color:#001}
 
-  /* project cards */
-  .projects{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}
-  @media (max-width:980px){ .projects{grid-template-columns:1fr} }
-  .proj{
-    perspective:900px;
-    border-radius:10px;
-  }
-  .proj > .inner{
-    transform-style:preserve-3d;transition:transform .6s cubic-bezier(.2,.9,.2,1);
-    min-height:90px;padding:12px;border-radius:10px;background:linear-gradient(180deg,rgba(255,255,255,0.015),rgba(255,255,255,0.01));
-    border:1px solid var(--glass-border);
-  }
-  .proj:hover > .inner{transform:rotateY(8deg) translateY(-6px) scale(1.01)}
-  .proj .title{font-size:14px;font-weight:700;margin-bottom:6px;color:var(--text)}
-  .proj .desc{font-size:12px;color:var(--muted)}
+/* project cards */
+.projects{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}
+@media(max-width:980px){.projects{grid-template-columns:1fr}}
+.proj{perspective:900px;border-radius:10px}
+.proj>.inner{
+  transform-style:preserve-3d;transition:transform .6s cubic-bezier(.2,.9,.2,1);
+  min-height:90px;padding:12px;border-radius:10px;background:linear-gradient(180deg,rgba(255,255,255,0.015),rgba(255,255,255,0.01));
+  border:1px solid var(--glass-border)
+}
+.proj:hover>.inner{transform:rotateY(8deg) translateY(-6px) scale(1.01)}
+.proj .title{font-size:14px;font-weight:700;margin-bottom:6px;color:var(--text)}
+.proj .desc{font-size:12px;color:var(--muted)}
 
-  /* terminal about box */
-  .terminal{
-    margin-top:18px;padding:14px;border-radius:10px;background:#030303;border:1px solid rgba(255,255,255,0.03);
-    font-family:var(--mono);font-size:13px;color:#b9fbd9;line-height:1.45
-  }
-  .term-line{opacity:0.95}
+/* terminal */
+.terminal{
+  margin-top:18px;padding:14px;border-radius:10px;background:#030303;border:1px solid rgba(255,255,255,0.03);
+  font-family:var(--mono);font-size:13px;color:#b9fbd9;line-height:1.45;
+  height: 200px;
+  overflow-y: scroll;
+}
+.terminal-line { margin-bottom: 3px; }
 
-  /* small util */
-  .muted{color:var(--muted)}
-  .badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+/* navbar */
+.nav{
+  position:fixed;left:18px;top:18px;z-index:60;padding:8px 12px;border-radius:12px;
+  background:linear-gradient(180deg,rgba(0,0,0,0.45),rgba(0,0,0,0.2));
+  border:1px solid rgba(255,255,255,0.03);backdrop-filter:blur(4px);
+  display:flex;gap:10px;align-items:center;font-family:var(--mono);font-size:13px
+}
+.nav button{
+  background:none;border:0;color:var(--muted);cursor:pointer;padding:6px 8px;border-radius:8px
+}
+.nav button:hover{color:var(--text);background:rgba(255,255,255,0.02)}
 
-  /* navbar */
-  .nav{
-    position:fixed;left:18px;top:18px;z-index:60;padding:8px 12px;border-radius:12px;background:linear-gradient(180deg,rgba(0,0,0,0.45),rgba(0,0,0,0.2));
-    border:1px solid rgba(255,255,255,0.03);backdrop-filter:blur(4px);
-    display:flex;gap:10px;align-items:center;font-family:var(--mono);font-size:13px
-  }
-  .nav button{background:none;border:0;color:var(--muted);cursor:pointer;padding:6px 8px;border-radius:8px}
-  .nav button:hover{color:var(--text);background:rgba(255,255,255,0.02)}
+/* command palette */
+.cmd{
+  position:fixed;left:50%;top:18%;transform:translateX(-50%);min-width:480px;max-width:90%;z-index:1000;
+  background:linear-gradient(180deg,rgba(10,10,10,0.96),rgba(10,10,10,0.92));padding:10px;border-radius:10px;
+  border:1px solid rgba(255,255,255,0.04);display:none;box-shadow:0 9px 40px rgba(0,0,0,0.6)
+}
+.cmd input{
+  width:100%;padding:10px;border-radius:8px;border:0;background:rgba(255,255,255,0.02);
+  color:var(--text);font-family:var(--mono);font-size:15px;
+  outline: none;
+}
 
-  /* command palette */
-  .cmd {
-    position:fixed;left:50%;top:18%;transform:translateX(-50%);min-width:480px;max-width:90%;z-index:1000;
-    background:linear-gradient(180deg,rgba(10,10,10,0.96),rgba(10,10,10,0.92));padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);
-    display:none;box-shadow:0 9px 40px rgba(0,0,0,0.6)
-  }
-  .cmd input{width:100%;padding:10px;border-radius:8px;border:0;background:rgba(255,255,255,0.02);color:var(--text);font-family:var(--mono);font-size:15px}
+/* floating logo */
+.logo{
+  position:fixed;right:18px;bottom:18px;z-index:5;width:68px;height:68px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;font-weight:700;font-family:var(--mono);font-size:14px;
+  background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));
+  border:1px solid var(--glass-border);backdrop-filter:blur(6px);color:var(--text)
+}
 
-  /* idle floating logo */
-  .logo {
-    position:fixed;right:18px;bottom:18px;z-index:5;width:68px;height:68px;border-radius:12px;
-    display:flex;align-items:center;justify-content:center;font-weight:700;font-family:var(--mono);font-size:14px;
-    background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-    border:1px solid var(--glass-border);backdrop-filter: blur(6px);color:var(--text);
-  }
+#bg-canvas{position:fixed;inset:0;z-index:1;pointer-events:none}
+footer{position:fixed;left:50%;bottom:10px;transform:translateX(-50%);z-index:60;color:var(--muted);font-size:12px;font-family:var(--mono)}
 
-  /* stars canvas overlay */
-  #bg-canvas{position:fixed;inset:0;z-index:1;pointer-events:none}
+/* Status/Minigame Box Styles */
+#status-box {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1001;
+    background: #000;
+    border: 1px solid var(--accent);
+    padding: 20px;
+    border-radius: 10px;
+    display: none;
+    font-family: var(--mono);
+    color: var(--text);
+    box-shadow: 0 0 30px var(--accent);
+    user-select: none; /* Prevent text highlighting during clicks */
+    white-space: pre; /* Essential for pre-formatted game content */
+}
 
-  /* subtle footer info */
-  footer{position:fixed;left:50%;bottom:10px;transform:translateX(-50%);z-index:60;color:var(--muted);font-size:12px;font-family:var(--mono)}
+/* Minesweeper Grid Styles */
+.minesweeper-grid {
+    display: inline-grid;
+    grid-template-columns: repeat(var(--grid-size), 20px);
+    grid-template-rows: repeat(var(--grid-size), 20px);
+    border: 2px solid var(--accent);
+    margin: 10px 0;
+    font-size: 14px;
+    line-height: 20px;
+}
+.cell {
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    border: 1px solid var(--glass-border);
+    cursor: pointer;
+    background: #111;
+}
+.cell.revealed {
+    background: #050505;
+    cursor: default;
+}
+.cell.safe {
+    color: var(--muted);
+}
+.cell[data-value="1"] { color: #00ff9d; }
+.cell[data-value="2"] { color: #88ff00; }
+.cell[data-value="3"] { color: #ff8800; }
+.cell[data-value="4"] { color: #ff0000; }
+
+/* Snake Grid Styles */
+.snake-grid {
+    display: inline-grid;
+    grid-template-columns: repeat(var(--grid-size), 16px);
+    grid-template-rows: repeat(var(--grid-size), 16px);
+    border: 2px solid var(--accent);
+    margin: 10px 0;
+    font-size: 14px;
+    line-height: 16px;
+    white-space: pre;
+}
+.snake-cell {
+    width: 16px;
+    height: 16px;
+    text-align: center;
+    background: #050505;
+}
+.snake-head { background: var(--accent); }
+.snake-body { background: rgba(0, 255, 157, 0.4); }
+.snake-apple { background: #ff0000; }
+
+/* Nano Editor Styles */
+.nano-editor {
+    background: #1e1e1e;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    min-height: 300px;
+    max-height: 500px;
+    overflow-y: scroll;
+    color: #f0f0f0;
+    font-size: 14px;
+    line-height: 1.4;
+}
+.nano-header {
+    color: #fff;
+    background: #333;
+    padding: 3px 0;
+    text-align: center;
+    margin-bottom: 8px;
+}
+.nano-footer {
+    color: var(--accent);
+    background: #333;
+    padding: 3px 0;
+    text-align: center;
+    margin-top: 8px;
+    font-size: 12px;
+}
+.nano-line {
+    display: flex;
+    white-space: pre;
+}
+.nano-line-num {
+    color: #555;
+    padding-right: 10px;
+    text-align: right;
+    width: 30px;
+}
+.nano-text {
+    flex-grow: 1;
+    color: #ddd;
+}
 </style>
 </head>
 <body>
 <div id="app">
-  <!-- background canvas for starfield + parallax layers -->
-  <canvas id="bg-canvas"></canvas>
+<canvas id="bg-canvas"></canvas>
 
-  <!-- navbar -->
-  <nav class="nav" aria-label="Site navigation">
-    <button id="themeToggle" title="Toggle neon theme (Konami also toggles)">Theme</button>
-    <button id="cmdToggle" title="Open command palette (Ctrl+K)">Cmd</button>
-    <button id="focusHome" title="Focus hero (press 1)">Home</button>
-    <button id="focusProjects" title="Focus projects (press 2)">Projects</button>
-  </nav>
+<nav class="nav">
+  <button id="themeToggle">Theme</button>
+  <button id="cmdToggle">Cmd</button>
+  <button id="focusHome">Home</button>
+  <button id="focusProjects">Projects</button>
+  <div id="fps-monitor" style="color:var(--accent); font-size:12px; margin-left: 10px;"></div>
+</nav>
 
-  <!-- command palette -->
-  <div class="cmd" id="cmd">
-    <input id="cmdInput" placeholder="Type a command (examples: projects, about, theme) — Esc to close" />
+<div class="cmd" id="cmd">
+  <input id="cmdInput" placeholder="Type a command — Esc to close" />
+</div>
+
+<div id="status-box"></div> 
+
+<main>
+<section class="hero">
+  <div class="hero-card">
+    <div class="topline">A-G0D — Abhay Godavarthy</div>
+    <h1 class="title" id="typedTitle"></h1><span class="cursor" id="heroCursor"></span>
+    <p class="subtitle">High school developer — building tools, simulations, and creative UIs.</p>
+    <div class="slow-typing" id="slowTyping"></div>
+
+    <div style="display:flex;gap:12px;margin-top:18px;flex-wrap:wrap;">
+      <a class="site-button" href="https://A-G0D.github.io" target="_blank">
+        <div class="site-thumb">AG</div>
+        <div>
+          <div style="font-weight:700">A-G0D.github.io</div>
+          <div style="font-size:12px;color:var(--muted)">Personal portfolio</div>
+        </div>
+      </a>
+
+      <a class="site-button" href="http://slhscs-club.github.io/club" target="_blank" style="width:auto">
+        <div style="font-size:13px;color:var(--muted)">Co-author of SLHS CS Club</div>
+      </a>
+    </div>
+
+    <div class="badges">
+      <img src="https://img.shields.io/badge/Python-3670A0?style=flat-square&logo=python&logoColor=ffdd54">
+      <img src="https://img.shields.io/badge/Java-ED8B00?style=flat-square&logo=java&logoColor=white">
+      <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white">
+      <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white">
+      <img src="https://img.shields.io/badge/JS-F7DF1E?style=flat-square&logo=javascript&logoColor=black">
+      <img src="https://img.shields.io/badge/C%23-239120?style=flat-square&logo=csharp&logoColor=white">
+      <img src="https://img.shields.io/badge/Rust-000000?style=flat-square&logo=rust&logoColor=white">
+      <img src="https://img.shields.io/badge/SQL-336791?style=flat-square&logo=postgresql&logoColor=white">
+    </div>
+
+    <div class="terminal" id="terminal">
+      <div class="terminal-line" id="termLine">> booting..</div>
+    </div>
   </div>
+</section>
 
-  <main>
-    <!-- HERO (left) -->
-    <section class="hero">
-      <div class="hero-card">
-        <div class="topline">A-G0D — Abhay Godavarthy</div>
-        <h1 class="title" id="typedTitle" aria-live="polite"></h1><span class="cursor" id="heroCursor" aria-hidden="true"></span>
-        <p class="subtitle">High school developer — building tools, simulations, and creative UIs.</p>
+<aside class="sidebar">
+  <div class="glass">
+    <div style="display:flex;align-items:center;justify-content:space-between">
+      <div style="font-weight:700">Stats & Activity</div>
+      <div class="muted" style="font-size:12px">live</div>
+    </div>
 
-        <div class="slow-typing" id="slowTyping" aria-hidden="true"></div>
+    <div style="margin-top:12px;display:flex;gap:10px;align-items:center;flex-direction:column">
+      <img src="https://github-readme-stats.vercel.app/api?username=A-G0D&show_icons=true&theme=tokyonight&hide_border=true" style="width:100%;border-radius:8px">
+      <img src="https://github-readme-streak-stats.herokuapp.com/?user=A-G0D&theme=tokyonight&hide_border:true" style="width:100%;border-radius:8px;margin-top:10px">
+      <img src="https://github-readme-activity-graph.vercel.app/graph?username=A-G0D&theme=react-dark&hide_border:true" style="width:100%;border-radius:8px;margin-top:10px">
+    </div>
 
-        <div style="display:flex;gap:12px;margin-top:18px;flex-wrap:wrap;">
-          <a class="site-button" id="visitSite" href="https://A-G0D.github.io" target="_blank" rel="noopener">
-            <div class="site-thumb">AG</div>
-            <div style="text-align:left">
-              <div style="font-weight:700">A-G0D.github.io</div>
-              <div style="font-size:12px;color:var(--muted)">Personal portfolio</div>
-            </div>
-          </a>
-
-          <a class="site-button" id="clubLink" href="http://slhscs-club.github.io/club" target="_blank" rel="noopener" style="width:auto">
-            <div style="font-size:13px;color:var(--muted)">Co-author of SLHS CS Club</div>
-          </a>
-        </div>
-
-        <div class="badges" aria-hidden="true">
-          <!-- simple badges using shields.io -->
-          <img src="https://img.shields.io/badge/Python-3670A0?style=flat-square&logo=python&logoColor=ffdd54" alt="Python">
-          <img src="https://img.shields.io/badge/Java-ED8B00?style=flat-square&logo=java&logoColor=white" alt="Java">
-          <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white" alt="HTML">
-          <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white" alt="CSS">
-          <img src="https://img.shields.io/badge/JS-F7DF1E?style=flat-square&logo=javascript&logoColor=black" alt="JS">
-          <img src="https://img.shields.io/badge/C%23-239120?style=flat-square&logo=csharp&logoColor=white" alt="C#">
-          <img src="https://img.shields.io/badge/Rust-000000?style=flat-square&logo=rust&logoColor=white" alt="Rust">
-          <img src="https://img.shields.io/badge/SQL-336791?style=flat-square&logo=postgresql&logoColor=white" alt="SQL">
-        </div>
-
-        <div class="terminal" id="terminal" tabindex="0" aria-label="Terminal about">
-          <div class="term-line" id="termLine">> booting..</div>
-        </div>
-
+    <div style="margin-top:12px;display:flex;justify-content:space-between;gap:8px;align-items:center">
+      <div style="font-size:13px;color:var(--muted)">Quick Links</div>
+      <div style="display:flex;gap:8px">
+        <button class="site-button" onclick="location.href='https://github.com/A-G0D'">GitHub</button>
       </div>
-    </section>
+    </div>
 
-    <!-- RIGHT SIDEBAR -->
-    <aside class="sidebar">
-      <div class="glass">
-        <div style="display:flex;align-items:center;justify-content:space-between">
-          <div style="font-weight:700">Stats & Activity</div>
-          <div class="muted" style="font-size:12px">live</div>
-        </div>
+    <div class="projects" id="projects">
+      <div class="proj"><div class="inner"><div class="title">Project Alpha</div><div class="desc">Sandbox: simulations & demos.</div></div></div>
+      <div class="proj"><div class="inner"><div class="title">Logger</div><div class="desc">Message archival + visualization.</div></div></div>
+      <div class="proj"><div class="inner"><div class="title">Browser (CEF)</div><div class="desc">Custom browser experiments.</div></div></div>
+      <div class="proj"><div class="inner"><div class="title">TTR Online</div><div class="desc">Ticket-to-Ride web game prototype.</div></div></div>
+    </div>
+  </div>
+</aside>
+</main>
 
-        <div style="margin-top:12px;display:flex;gap:10px;align-items:center;flex-direction:column">
-          <img src="https://github-readme-stats.vercel.app/api?username=A-G0D&show_icons=true&theme=tokyonight&hide_border=true" style="width:100%;border-radius:8px" alt="github stats">
-          <img src="https://github-readme-streak-stats.herokuapp.com/?user=A-G0D&theme=tokyonight&hide_border=true" style="width:100%;border-radius:8px;margin-top:10px" alt="streak">
-          <img src="https://github-readme-activity-graph.vercel.app/graph?username=A-G0D&theme=react-dark&hide_border=true" style="width:100%;border-radius:8px;margin-top:10px" alt="activity">
-        </div>
+<div class="logo" id="logo">A-G0D</div>
 
-        <div style="margin-top:12px;display:flex;justify-content:space-between;gap:8px;align-items:center">
-          <div style="font-size:13px;color:var(--muted)">Quick Links</div>
-          <div style="display:flex;gap:8px">
-            <button class="site-button" onclick="location.href='https://github.com/A-G0D'">GitHub</button>
-          </div>
-        </div>
-
-        <div class="projects" id="projects">
-          <div class="proj"><div class="inner"><div class="title">Project Alpha</div><div class="desc">Sandbox: simulations & demos.</div></div></div>
-          <div class="proj"><div class="inner"><div class="title">Discord Logger</div><div class="desc">Message archival + visualization.</div></div></div>
-          <div class="proj"><div class="inner"><div class="title">Browser (CEF)</div><div class="desc">Custom browser experiments.</div></div></div>
-          <div class="proj"><div class="inner"><div class="title">TTR Online</div><div class="desc">Ticket-to-Ride web game prototype.</div></div></div>
-        </div>
-
-      </div>
-    </aside>
-  </main>
-
-  <!-- logo that floats when idle -->
-  <div class="logo" id="logo">A-G0D</div>
-
-  <footer>Press <span style="font-family:var(--mono)">Ctrl+K</span> to open command palette • Konami code reveals neon theme</footer>
+<footer>Press <span style="font-family:var(--mono)">Ctrl+K</span> or <span style="font-family:var(--mono)">/</span> for command palette • Konami code toggles neon theme</footer>
 </div>
 
 <script>
-/* =========================
-   Starfield + Parallax + Comet
-   ========================= */
-
+// Persistent Theme State
 (() => {
-  const canvas = document.getElementById('bg-canvas');
-  const ctx = canvas.getContext('2d', { alpha: true });
+    if (localStorage.getItem('neonTheme') === 'enabled') {
+        document.body.classList.add('neon');
+    }
+})();
+
+/* Utility for generating rgba strings */
+const rgba = (r, g, b, a) => `rgba(${r},${g},${b},${a})`;
+/* Utility for getting random number */
+const rand = (a, b) => Math.random() * (b - a) + a;
+
+/* =========================================
+   CUSTOM CONSOLE/TERMINAL
+========================================= */
+const termLog = document.getElementById("terminal");
+const userName = "abhay"; // Used for terminal prompt
+let currentDir = '/home/abhay';
+
+function customLog(message, color = 'var(--text)') {
+    const line = document.createElement('div');
+    line.className = 'terminal-line';
+    line.style.color = color;
+    // **FIXED:** Reinstated full prompt format
+    line.innerHTML = `<span style="color:var(--accent)">${userName}@ag0d</span>:<span style="color:#6be0ff">${currentDir}</span>$ ${message}`;
+    termLog.appendChild(line);
+    termLog.scrollTop = termLog.scrollHeight;
+}
+
+function clearTerminal() {
+    termLog.innerHTML = '';
+}
+
+
+/* ================================
+   STARFIELD + GRAVITY + NEBULA
+================================ */
+(() => {
+  const canvas = document.getElementById("bg-canvas");
+  const ctx = canvas.getContext("2d", { alpha: true });
+
   let DPR = Math.max(1, window.devicePixelRatio || 1);
-  let W = canvas.width = innerWidth * DPR;
-  let H = canvas.height = innerHeight * DPR;
-  canvas.style.width = innerWidth + 'px';
-  canvas.style.height = innerHeight + 'px';
+  let W, H;
+  let animationFrame;
+  let isPaused = false;
+  window.particleMode = false;
+  let starIDCounter = 0;
 
-  const config = {
-    starCount: 140,
-    starSize: [0.6, 2.2],
-    starSpeed: 0.02,
-    flicker: 0.02,
-    mouseInfluence: 0.18,
-    parallaxLayers: 3,
-    cometChance: 0.003
-  };
-
-  let stars = [];
-  let mouse = { x: 0, y: 0, vx:0, vy:0, lastMove: Date.now() };
-  let last = performance.now();
-
-  function resetSize(){
+  function resize() {
     DPR = Math.max(1, window.devicePixelRatio || 1);
     W = canvas.width = innerWidth * DPR;
     H = canvas.height = innerHeight * DPR;
-    canvas.style.width = innerWidth + 'px';
-    canvas.style.height = innerHeight + 'px';
+    canvas.style.width = innerWidth + "px";
+    canvas.style.height = innerHeight + "px";
+    
+    if (W * H < 500000 * DPR * DPR) { 
+        cfg.maxStars = 100;
+        cfg.initialStars = 50;
+    } else {
+        cfg.maxStars = 250;
+        cfg.initialStars = 100;
+    }
+    initScene(true);
   }
-  addEventListener('resize', resetSize);
+  
+  window.pauseSimulation = () => { isPaused = true; customLog("Simulation PAUSED", "yellow"); };
+  window.unpauseSimulation = () => { isPaused = false; customLog("Simulation RESUMED", "var(--accent)"); requestAnimationFrame(loop); };
+  window.toggleParticleMode = (state) => {
+      window.particleMode = state;
+      if (state) {
+          customLog("Switching to PARTICLE IMAGE MODE...", "magenta");
+          initParticleImage();
+      } else {
+          customLog("Switching to STARFIELD MODE...", "magenta");
+          initStarfield(); // Re-initialize starfield properly
+          requestAnimationFrame(loop); // Ensure loop restarts if paused by switch
+      }
+  };
 
-  function rand(min,max){ return Math.random()*(max-min)+min }
 
-  // create star positions with layer depth
-  for(let i=0;i<config.starCount;i++){
-    stars.push({
-      x: Math.random()*W,
-      y: Math.random()*H,
-      z: Math.random(), // depth 0..1
-      size: rand(config.starSize[0], config.starSize[1]),
-      flick: Math.random(),
-      vx: 0, vy:0
-    });
+  const cfg = {
+    initialStars: 100,
+    maxStars: 250,
+    starSizeRange: [0.6, 2.0],
+    starMassRange: [1.0, 5.0],
+    maxStarMass: 45, 
+    gravityConstant: 0.00000001, 
+    centerPullStrength: 0.00000008, 
+    parallaxClamp: 40, 
+    starSpawnRate: 0.005,
+    mouseInfluence: 0.18,
+    flickerSpeed: 0.06,
+    nebulaCount: 8, 
+    nebulaOpacityRange: [0.3, 0.5], /* Increased opacity */
+    nebulaRadiusRange: [500, 1000], /* Increased radius */
+    nebulaColors: [
+        '96, 75, 139', 
+        '100, 90, 80',   
+        '120, 100, 140', 
+        '0, 180, 100',   
+        '85, 75, 70'     
+    ],
+    centerDrag: 0.9995, 
+    edgeDrag: 0.999,
+    massThresholds: {
+        Dwarf: 10,
+        Giant: 30,
+        Supergiant: 50
+    },
+    planetChance: 0.0001
+  };
+
+  const stars = [];
+  const comets = [];
+  const nebulae = [];
+  
+  const imageParticles = [];
+  let imageParticleAmount = 0;
+
+  // **FIXED:** Use a reliable SVG data URL to ensure the particle shape loads correctly.
+  const logoSvg = `<svg width="100" height="100" viewBox="0 0 100 100" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M50 0 L0 100 L100 100 Z" fill="none" stroke="white" stroke-width="5" />
+      <text x="50" y="70" font-family="monospace" font-size="28" fill="white" text-anchor="middle">AG</text>
+  </svg>`;
+  const logoDataUrl = 'data:image/svg+xml;base64,' + btoa(logoSvg);
+  let logoImg = new Image();
+  logoImg.src = logoDataUrl;
+
+
+  // --- Object Definitions ---
+  
+  function Star(x, y, z, mass) {
+    this.id = starIDCounter++;
+    this.x = x;
+    this.y = y;
+    this.z = z; 
+    this.mass = mass;
+    this.radius = Math.pow(mass, 0.4) * (DPR / 2); 
+    this.size = rand(cfg.starSizeRange[0], cfg.starSizeRange[1]);
+    this.flick = Math.random();
+    this.vx = 0;
+    this.vy = 0;
+    this.age = 0;
+    this.isPlanet = false;
+    this.isBlackHole = false;
+  }
+  
+  function Planet(x, y, vx, vy, parentStar) {
+    this.x = x;
+    this.y = y;
+    this.vx = vx;
+    this.vy = vy;
+    this.radius = rand(1, 2) * DPR;
+    this.isPlanet = true;
+    this.parentStar = parentStar; 
+    this.color = rgba(100, 150, 200, 1);
+  }
+  
+  function ImageParticle(x,y, destX, destY) {
+    this.x = x;
+    this.y = y;
+    this.dest = { x: destX, y: destY };
+    this.r = rand(1, 3);
+    this.vx = rand(-10, 10);
+    this.vy = rand(-10, 10);
+    this.accX = 0;
+    this.accY = 0;
+    this.friction = rand(0.9, 0.96);
+    this.color = rgba(0, 255, 157, rand(0.5, 1)); /* Set color to accent */
+  }
+  ImageParticle.prototype.render = function(mouse) {
+      this.accX = (this.dest.x - this.x) / 100;
+      this.accY = (this.dest.y - this.y) / 100;
+      this.vx += this.accX;
+      this.vy += this.accY;
+      this.vx *= this.friction;
+      this.vy *= this.friction;
+
+      this.x += this.vx;
+      this.y += this.vy;
+
+      ctx.fillStyle = this.color;
+      ctx.fillRect(this.x, this.y, this.r, this.r);
+
+      let a = this.x - mouse.x;
+      let b = this.y - mouse.y;
+
+      let distance = Math.sqrt(a * a + b * b);
+
+      if(distance < 70 * DPR) {
+          this.accX = (this.x - mouse.x) / 100;
+          this.accY = (this.y - mouse.y) / 100;
+          this.vx += this.accX * 0.5;
+          this.vy += this.accY * 0.5;
+      }
   }
 
-  // comet generator
-  let comets = [];
-  function maybeSpawnComet(){
-    if(Math.random() < config.cometChance){
-      const size=rand(1.4,3.4)*DPR;
-      comets.push({
-        x: Math.random()*W*0.6,
-        y: -50*DPR,
-        vx: rand(-0.2,0.2)*DPR,
-        vy: rand(0.9,1.5)*DPR,
-        life: 0,
-        maxLife: rand(800,1600),
-        size
-      });
+  function Comet(x, y, vx, vy, size) {
+    this.x = x;
+    this.y = y;
+    this.vx = vx;
+    this.vy = vy;
+    this.size = size * DPR;
+    this.life = 0;
+    this.maxLife = rand(1000, 2500); 
+    const nebulaColorBase = cfg.nebulaColors[Math.floor(rand(0, cfg.nebulaColors.length))].split(',').map(c => parseInt(c.trim()));
+    this.color = `rgba(${nebulaColorBase[0]}, ${nebulaColorBase[1]}, ${nebulaColorBase[2]}, 1)`;
+  }
+
+  function Nebula() {
+    this.x = rand(0, W);
+    this.y = rand(0, H);
+    this.radius = rand(cfg.nebulaRadiusRange[0], cfg.nebulaRadiusRange[1]) * DPR;
+    this.color = cfg.nebulaColors[Math.floor(rand(0, cfg.nebulaColors.length))];
+    this.alpha = rand(cfg.nebulaOpacityRange[0], cfg.nebulaOpacityRange[1]);
+    this.depth = rand(0.1, 0.3); 
+    this.vx = rand(-0.02, 0.02) * DPR;
+    this.vy = rand(-0.02, 0.02) * DPR;
+    this.noiseOffset = Math.random() * 1000;
+  }
+  
+  // --- Initialization ---
+
+  function initStarfield() {
+    stars.length = 0;
+    comets.length = 0;
+    nebulae.length = 0;
+
+    for (let i = 0; i < cfg.initialStars; i++) {
+      stars.push(new Star(
+        Math.random() * W,
+        Math.random() * H,
+        Math.random(),
+        rand(cfg.starMassRange[0], cfg.starMassRange[1])
+      ));
+    }
+    for (let i = 0; i < cfg.nebulaCount; i++) {
+      nebulae.push(new Nebula());
     }
   }
 
-  function draw(now){
-    const dt = Math.min(60, now - last);
-    last = now;
-    ctx.clearRect(0,0,W,H);
+  function initParticleImage() {
+      // **FIXED:** Wait for the image to load
+      logoImg.onload = function () {
+          ctx.clearRect(0, 0, W, H);
+          const size = 300 * DPR;
+          ctx.drawImage(logoImg, W / 2 - size / 2, H / 2 - size / 2, size, size);
 
-    // subtle background gradient
-    const g = ctx.createLinearGradient(0,0,0,H);
+          let data  = ctx.getImageData(0, 0, W, H).data;
+          ctx.clearRect(0, 0, W, H);
+          ctx.globalCompositeOperation = "screen";
+
+          imageParticles.length = 0;
+
+          const step = 6 * DPR; // Increased resolution for better shape
+          for(let i = 0; i < W; i += step){
+              for(let j = 0; j < H; j += step){
+                  // Check if the pixel is non-transparent white (from the SVG)
+                  if(data[ ((Math.floor(j) * W + Math.floor(i)) * 4) + 3] > 100){ 
+                      imageParticles.push(new ImageParticle(rand(0, W), rand(0, H), i, j));
+                  }
+              }
+          }
+          imageParticleAmount = imageParticles.length;
+          customLog(`Loaded ${imageParticleAmount} image particles.`, 'cyan');
+      }
+      // If the image is already complete, run the logic directly
+      if (logoImg.complete) {
+          logoImg.onload();
+      }
+  }
+
+  function initScene(skipLog = false) {
+    if (window.particleMode) {
+        initParticleImage();
+    } else {
+        initStarfield();
+    }
+    if (!skipLog) customLog("Scene initialized.", "var(--accent)");
+  }
+  
+  // --- Interaction Tracking ---
+  let mouse = { x: innerWidth / 2, y: innerHeight / 2 };
+  let spacePressed = false;
+
+  window.addEventListener("mousemove", e => {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+  });
+  
+  canvas.addEventListener("mouseleave", () => { mouse.active = false; });
+  canvas.addEventListener("mouseenter", () => { mouse.active = true; });
+
+  window.addEventListener("mousedown", e => { e.preventDefault(); });
+  window.addEventListener("keydown", e => {
+    if (e.code === "Space" && document.activeElement.tagName !== 'INPUT') { 
+        spacePressed = true;
+        e.preventDefault(); 
+    }
+  });
+  window.addEventListener("keyup", e => {
+    if (e.code === "Space") {
+        spacePressed = false;
+    }
+  });
+
+  // --- Utility ---
+  function clamp(num, min, max) {
+    return Math.max(min, Math.min(max, num));
+  }
+  
+  function getStarColor(star) {
+      const vMag = Math.sqrt(star.vx * star.vx + star.vy * star.vy);
+      const speedFactor = clamp(vMag / (3 * DPR), 0, 1); 
+      
+      let r = 255;
+      let g = 255 - Math.floor(speedFactor * 100);
+      let b = 255;
+      
+      let classification = 'Dwarf';
+      if (star.mass > cfg.massThresholds.Supergiant) {
+          classification = 'Supergiant';
+          r = 255; g = 150; b = 150;
+      } else if (star.mass > cfg.massThresholds.Giant) {
+          classification = 'Giant';
+          r = 255; g = 200; b = 100;
+      }
+      
+      if (star.isBlackHole) {
+          return rgba(0, 0, 0, 1);
+      }
+      
+      const alpha = 0.6 + 0.4 * Math.sin(star.flick * 6);
+      return rgba(r, g, b, alpha);
+  }
+
+  // --- Simulation Loop ---
+  let last = performance.now();
+  let frameCount = 0;
+  let fpsTime = 0;
+  const fpsMonitor = document.getElementById("fps-monitor");
+
+  function loop(now) {
+    if (isPaused) {
+        // Only update FPS when paused
+        frameCount++;
+        fpsTime += now - last;
+        last = now;
+        if (fpsTime >= 1000) {
+            fpsMonitor.textContent = `PAUSED`;
+            frameCount = 0;
+            fpsTime = 0;
+        }
+        return; 
+    }
+
+    animationFrame = requestAnimationFrame(loop);
+    
+    const dt = Math.min(40, now - last); 
+    last = now;
+    const dt_sec = dt / 1000;
+    
+    frameCount++;
+    fpsTime += dt;
+    if (fpsTime >= 1000) {
+        fpsMonitor.textContent = `${Math.round(frameCount / (fpsTime / 1000))} FPS`;
+        frameCount = 0;
+        fpsTime = 0;
+    }
+
+    // 1. Clear & Background Gradient
+    ctx.clearRect(0, 0, W, H);
+    const g = ctx.createLinearGradient(0, 0, 0, H);
     g.addColorStop(0, 'rgba(10,10,12,1)');
     g.addColorStop(1, 'rgba(2,2,3,1)');
     ctx.fillStyle = g;
-    ctx.fillRect(0,0,W,H);
+    ctx.fillRect(0, 0, W, H);
 
-    // parallax origin (center) with mouse opposite movement:
-    const cx = (mouse.x || innerWidth/2) * DPR;
-    const cy = (mouse.y || innerHeight/2) * DPR;
+    const cx = mouse.x * DPR;
+    const cy = mouse.y * DPR;
+    const center = { x: W / 2, y: H / 2 };
+    
+    const parallaxOffsetMax = cfg.parallaxClamp * DPR;
+    const mouseXDelta = clamp(center.x - cx, -parallaxOffsetMax, parallaxOffsetMax);
+    const mouseYDelta = clamp(center.y - cy, -parallaxOffsetMax, parallaxOffsetMax);
 
-    // stars (move opposite the mouse to create depth)
-    for(let s of stars){
-      // depth-scaled movement opposite mouse delta
-      const depth = 0.3 + s.z*0.9; // 0.3..1.2
-      const dx = ( (W/2 - cx) * config.mouseInfluence * (1-depth) ) * 0.0009;
-      const dy = ( (H/2 - cy) * config.mouseInfluence * (1-depth) ) * 0.0009;
 
-      s.x += dx * dt * (0.4 + depth*0.6) + s.vx*dt*0.02;
-      s.y += dy * dt * (0.4 + depth*0.6) + s.vy*dt*0.02;
-
-      // wrap
-      if(s.x < -10*DPR) s.x += W + 20*DPR;
-      if(s.x > W + 10*DPR) s.x -= W + 20*DPR;
-      if(s.y < -10*DPR) s.y += H + 20*DPR;
-      if(s.y > H + 10*DPR) s.y -= H + 20*DPR;
-
-      // flicker
-      s.flick += (Math.random()-0.5)*0.06;
-      const alpha = 0.6 + 0.4*Math.sin(s.flick*6);
-
-      // draw star
-      ctx.beginPath();
-      const r = s.size * (0.6 + 0.6*(1 - s.z));
-      ctx.fillStyle = `rgba(255,255,255,${alpha})`;
-      ctx.arc(s.x, s.y, Math.max(0.2, r*DPR/2), 0, Math.PI*2);
-      ctx.fill();
-    }
-
-    // comets
-    for(let i=comets.length-1;i>=0;i--){
-      const c=comets[i];
-      c.x += c.vx*dt; c.y += c.vy*dt; c.life += dt;
-      const p = c.life / c.maxLife;
-      if(p>1){ comets.splice(i,1); continue }
-      // streak
-      const grad = ctx.createLinearGradient(c.x, c.y, c.x - c.vx*20*c.size, c.y - c.vy*20*c.size);
-      grad.addColorStop(0, 'rgba(0,255,157,0.95)');
-      grad.addColorStop(1, 'rgba(0,255,157,0.02)');
-      ctx.fillStyle = grad;
-      ctx.beginPath();
-      ctx.ellipse(c.x, c.y, c.size*8*(1-p), c.size*2*(1-p), Math.atan2(c.vy,c.vx), 0, Math.PI*2);
-      ctx.fill();
-
-      // head
-      ctx.beginPath();
-      ctx.fillStyle = `rgba(0,255,157,${0.9*(1-p)})`;
-      ctx.arc(c.x, c.y, c.size*1.6, 0, Math.PI*2);
-      ctx.fill();
-    }
-
-    // subtle vignette
-    ctx.beginPath();
-    const vg = ctx.createRadialGradient(W/2,H/2,Math.min(W,H)/4,W/2,H/2,Math.max(W,H));
-    vg.addColorStop(0, 'rgba(0,0,0,0)');
-    vg.addColorStop(1, 'rgba(0,0,0,0.45)');
-    ctx.fillStyle = vg;
-    ctx.fillRect(0,0,W,H);
-
-    // occasionally spawn comet
-    if(Math.random() < 0.004) maybeSpawnComet();
-
-    requestAnimationFrame(draw);
-  }
-
-  // mouse handling (throttled)
-  let lastMove = 0;
-  addEventListener('mousemove', (e)=>{
-    const now = Date.now();
-    mouse.x = e.clientX; mouse.y = e.clientY; mouse.lastMove = now;
-    if(now - lastMove > 16){
-      lastMove = now;
-      // add slight velocity for particle repel
-      mouse.vx = e.movementX || 0;
-      mouse.vy = e.movementY || 0;
-    }
-  });
-
-  // touch fallback
-  addEventListener('touchmove', (e)=> {
-    const t = e.touches[0];
-    mouse.x = t.clientX; mouse.y = t.clientY;
-  }, {passive:true});
-
-  // resize & start
-  requestAnimationFrame(draw);
-})();
-
-/* =========================
-   Hero typing + slow typing + terminal small animation
-   ========================= */
-(() => {
-  const titleEl = document.getElementById('typedTitle');
-  const cursor = document.getElementById('heroCursor');
-  const slowEl = document.getElementById('slowTyping');
-  const termLine = document.getElementById('termLine');
-  const logo = document.getElementById('logo');
-
-  const lines = ['Abhay Godavarthy', 'Student • Developer', 'Python | Java | C# | HTML | CSS | JS | Rust | SQL'];
-  let li = 0, ci = 0, typing=false;
-
-  function typeLoop(){
-    if(li >= lines.length) return; // stop
-    const line = lines[li];
-    typing = true;
-    if(ci < line.length){
-      titleEl.textContent += line.charAt(ci);
-      ci++;
-      setTimeout(typeLoop, 80); // hero typing speed
-    } else {
-      // next line after short pause
-      li++; ci = 0;
-      setTimeout(()=>{
-        // clear title and type next line but here we keep first line (name) — use only first line large
-        if(li === 1){
-          // do nothing; keep name visible and stop
+    if (window.particleMode) {
+        ctx.globalCompositeOperation = "screen";
+        for (let i = 0; i < imageParticleAmount; i++) {
+            imageParticles[i].render(mouse);
         }
-        typing=false;
-      }, 500);
+        ctx.globalCompositeOperation = 'source-over'; 
+        return;
+    }
+
+    // 2. Star Spawn
+    if (stars.length < cfg.maxStars && Math.random() < cfg.starSpawnRate) {
+      stars.push(new Star(
+        rand(0, W),
+        rand(0, H),
+        Math.random(),
+        rand(cfg.starMassRange[0], cfg.starMassRange[1])
+      ));
+    }
+
+    // 3. Nebulae
+    ctx.globalCompositeOperation = 'lighter'; 
+    for (const n of nebulae) {
+      const depthFactor = 1 - n.depth;
+      const parallaxX = mouseXDelta * cfg.mouseInfluence * depthFactor * 0.005;
+      const parallaxY = mouseYDelta * cfg.mouseInfluence * depthFactor * 0.005;
+      
+      n.x += n.vx * dt_sec + parallaxX;
+      n.y += n.vy * dt_sec + parallaxY;
+
+      if (n.x > W + n.radius) n.x = -n.radius;
+      if (n.x < -n.radius) n.x = W + n.radius;
+      if (n.y > H + n.radius) n.y = -n.radius;
+      if (n.y < -n.radius) n.y = H + n.radius;
+
+      const radial = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, n.radius);
+      radial.addColorStop(0, rgba(...n.color.split(',').map(c => c.trim()), n.alpha * 0.5));
+      radial.addColorStop(0.5, rgba(...n.color.split(',').map(c => c.trim()), n.alpha * 0.1));
+      radial.addColorStop(1, rgba(0, 0, 0, 0));
+      ctx.fillStyle = radial;
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.radius, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.globalCompositeOperation = 'source-over'; 
+    
+    const sortedStars = [...stars].sort((a, b) => b.mass - a.mass).slice(0, 5);
+    ctx.strokeStyle = rgba(0, 255, 157, 0.05); 
+    ctx.lineWidth = 0.5;
+    ctx.beginPath();
+    for (let i = 0; i < sortedStars.length; i++) {
+        for (let j = i + 1; j < sortedStars.length; j++) {
+            ctx.moveTo(sortedStars[i].x, sortedStars[i].y);
+            ctx.lineTo(sortedStars[j].x, sortedStars[j].y);
+        }
+    }
+    ctx.stroke();
+
+
+    // 4. Physics & Star Generation
+    for (let i = stars.length - 1; i >= 0; i--) {
+      const s1 = stars[i];
+      s1.age += dt;
+
+      const depthFactor = 1 - s1.z;
+      const dx_p = mouseXDelta * cfg.mouseInfluence * depthFactor * 0.0009 * dt;
+      const dy_p = mouseYDelta * cfg.mouseInfluence * depthFactor * 0.0009 * dt;
+      s1.x += dx_p;
+      s1.y += dy_p;
+
+      const centerDistX = center.x - s1.x;
+      const centerDistY = center.y - s1.y;
+      const centerDistSq = centerDistX ** 2 + centerDistY ** 2;
+      const centerDist = Math.sqrt(centerDistSq);
+
+      if (centerDist > 1) {
+          const centerForce = cfg.centerPullStrength * s1.mass;
+          const ax = centerForce * centerDistX / centerDist;
+          const ay = centerForce * centerDistY / centerDist;
+          s1.vx += ax * dt;
+          s1.vy += ay * dt;
+      }
+      
+      const boundaryForce = 0.000000005 * DPR;
+      if (s1.x < W * 0.1) s1.vx += boundaryForce * dt;
+      if (s1.x > W * 0.9) s1.vx -= boundaryForce * dt;
+      if (s1.y < H * 0.1) s1.vy += boundaryForce * dt;
+      if (s1.y > H * 0.9) s1.vy -= boundaryForce * dt;
+      
+      if (s1.x < -10 * DPR) s1.x += W + 20 * DPR;
+      if (s1.x > W + 10 * DPR) s1.x -= W + 20 * DPR;
+      if (s1.y < -10 * DPR) s1.y += H + 20 * DPR;
+      if (s1.y > H + 10 * DPR) s1.y -= H + 20 * DPR;
+
+      s1.x += s1.vx * dt_sec;
+      s1.y += s1.vy * dt_sec;
+      
+      const dragFactor = (centerDist / (W/2)) * (cfg.edgeDrag - cfg.centerDrag) + cfg.centerDrag;
+      s1.vx *= dragFactor;
+      s1.vy *= dragFactor;
+
+      for (let j = i - 1; j >= 0; j--) {
+        const s2 = stars[j];
+        const distSq = (s1.x - s2.x) ** 2 + (s1.y - s2.y) ** 2;
+        const dist = Math.sqrt(distSq);
+
+        if (dist < s1.radius + s2.radius && !s1.isBlackHole && !s2.isBlackHole) {
+          const totalMass = s1.mass + s2.mass;
+          s1.x = (s1.x * s1.mass + s2.x * s2.mass) / totalMass;
+          s1.y = (s1.y * s1.mass + s2.y * s2.mass) / totalMass;
+          s1.vx = (s1.vx * s1.mass + s2.vx * s2.mass) / totalMass;
+          s1.vy = (s1.vy * s1.mass + s2.vy * s2.mass) / totalMass;
+          s1.mass = totalMass;
+          s1.radius = Math.pow(s1.mass, 0.4) * (DPR / 2);
+          
+          stars.splice(j, 1); 
+          i--; 
+
+          if (s1.mass > cfg.massThresholds.Supergiant * 2 && Math.random() < 0.05) {
+              s1.isBlackHole = true;
+              s1.mass *= 5;
+              s1.radius = Math.pow(s1.mass, 0.3) * (DPR / 2);
+              customLog("ATTENTION: Black Hole formed!", 'red');
+          }
+          
+          if (s1.mass > cfg.maxStarMass && !s1.isBlackHole) {
+            const cometVx = rand(-0.2, 0.2) * DPR;
+            const cometVy = rand(0.9, 1.5) * DPR; 
+            comets.push(new Comet(s1.x, s1.y, cometVx, cometVy, s1.radius * 0.5));
+            stars.splice(i, 1); 
+            continue; 
+          }
+          continue; 
+        }
+        
+        if (dist > 1 && dist < 300 * DPR) { 
+          const force = cfg.gravityConstant * (s1.mass * s2.mass) / distSq;
+          const ax = force * (s2.x - s1.x) / dist;
+          const ay = force * (s2.y - s1.y) / dist;
+          
+          s1.vx += ax * dt;
+          s1.vy += ay * dt;
+          s2.vx -= ax * dt;
+          s2.vy -= ay * dt;
+        }
+      }
+      
+      if (s1.mass > cfg.massThresholds.Giant && Math.random() < cfg.planetChance && stars.filter(p => p.isPlanet && p.parentStar === s1).length < 2) {
+          stars.push(new Planet(s1.x + s1.radius * 5, s1.y, s1.vx + rand(-0.1, 0.1), s1.vy, s1));
+      }
+      
+      if (s1.isBlackHole) {
+          ctx.beginPath();
+          ctx.arc(s1.x, s1.y, s1.radius * 2, 0, Math.PI * 2);
+          ctx.fillStyle = rgba(10, 0, 0, 0.5);
+          ctx.fill();
+          
+          ctx.beginPath();
+          ctx.arc(s1.x, s1.y, s1.radius, 0, Math.PI * 2);
+          ctx.fillStyle = 'black';
+          ctx.fill();
+      }
+
+      if (!s1.isBlackHole && !s1.isPlanet) {
+          s1.flick += (Math.random() - 0.5) * cfg.flickerSpeed;
+          const r = s1.radius * (0.6 + 0.6 * (1 - s1.z)); 
+          
+          ctx.fillStyle = getStarColor(s1);
+          for(let k=0; k < 3; k++) {
+              ctx.globalAlpha = 0.05 * (3 - k) * (0.6 + 0.6 * (1 - s1.z));
+              ctx.beginPath();
+              ctx.arc(s1.x - s1.vx * k * dt_sec, s1.y - s1.vy * k * dt_sec, Math.max(0.2, r), 0, Math.PI * 2);
+              ctx.fill();
+          }
+          ctx.globalAlpha = 1;
+          
+          ctx.beginPath();
+          ctx.fillStyle = getStarColor(s1);
+          ctx.arc(s1.x, s1.y, Math.max(0.2, r), 0, Math.PI * 2);
+          ctx.fill();
+      }
+      
+      if (s1.isPlanet) {
+        // Simple planet rendering
+        const p = s1;
+        ctx.beginPath();
+        ctx.fillStyle = p.color;
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+    
+    if (spacePressed && mouse.active) {
+        if (Math.random() < 0.2 && stars.length < cfg.maxStars) {
+            stars.push(new Star(
+                cx + rand(-5, 5) * DPR, 
+                cy + rand(-5, 5) * DPR, 
+                rand(0.7, 1), 
+                rand(cfg.starMassRange[0], cfg.starMassRange[1])
+            ));
+        }
+    }
+
+
+    // 5. Comets 
+    for (let i = comets.length - 1; i >= 0; i--) {
+      const c = comets[i];
+      c.x += c.vx * dt;
+      c.y += c.vy * dt;
+      c.life += dt;
+
+      const p = c.life / c.maxLife;
+      if (p >= 1 || c.y > H + 50*DPR) { 
+        comets.splice(i, 1);
+        continue;
+      }
+
+      const tail = 80 * DPR;
+      ctx.strokeStyle = c.color.replace(/, 1\)$/, `, ${1 - p})`);
+      ctx.lineWidth = c.size;
+      ctx.lineCap = 'round';
+      ctx.beginPath();
+      ctx.moveTo(c.x, c.y);
+      ctx.lineTo(c.x - c.vx * tail, c.y - c.vy * tail);
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.fillStyle = c.color.replace(/, 1\)$/, `, ${1 - p})`);
+      ctx.arc(c.x, c.y, c.size * 1.6, 0, Math.PI * 2);
+      ctx.fill();
     }
   }
-  // start typed hero (only the first line is important)
-  typeLoop();
-
-  // slow typing for "Visit my website" + url — very slow
-  const slowLines = ['Visit my website', 'A-G0D.github.io'];
-  (async function slowType(){
-    for(const l of slowLines){
-      let s='';
-      for(let i=0;i<l.length;i++){ s+=l[i]; slowEl.textContent = s; await new Promise(r=>setTimeout(r, 160)); }
-      await new Promise(r=>setTimeout(r, 700));
-    }
-  })();
-
-  // tiny terminal lines cycling
-  const tLines = [
-    '> loading modules: [ui,net,ai,ide]',
-    '> connecting to github... ok',
-    '> local experiments initialized',
-    '> welcome, Abhay — have a look around'
-  ];
-  let ti = 0;
-  setInterval(()=>{
-    termLine.textContent = tLines[ti % tLines.length];
-    ti++;
-  }, 2400);
-
-  // idle floating logo motion when no mouse for a bit
-  let lastMove = Date.now();
-  document.addEventListener('mousemove', ()=> lastMove = Date.now());
-  function floatLogo(){
-    const idle = (Date.now() - lastMove) > 4000;
-    if(idle){
-      logo.style.transform = `translateY(${Math.sin(Date.now()/800)*6}px) rotate(${Math.sin(Date.now()/1400)*3}deg)`;
-    } else {
-      logo.style.transform = 'translateY(0) rotate(0)';
-    }
-    requestAnimationFrame(floatLogo);
-  }
-  floatLogo();
+  
+  resize();
+  window.addEventListener("resize", resize);
+  requestAnimationFrame(loop);
 })();
 
-/* =========================
-   Keyboard shortcuts, command palette, nav
-   ========================= */
 
+/* =========================================
+   TYPING EFFECTS
+========================================= */
 (() => {
-  const cmd = document.getElementById('cmd');
-  const cmdInput = document.getElementById('cmdInput');
-  const cmdToggle = document.getElementById('cmdToggle');
-  const themeToggle = document.getElementById('themeToggle');
+  const title = "Abhay Godavarthy";
+  const typed = document.getElementById("typedTitle");
+  const slow = document.getElementById("slowTyping");
 
-  function openCmd(){
-    cmd.style.display = 'block';
-    cmdInput.focus();
-    cmdInput.select();
-  }
-  function closeCmd(){
-    cmd.style.display = 'none';
-    cmdInput.value = '';
-  }
+  let typingSpeed = 70;
 
-  cmdToggle.addEventListener('click', openCmd);
-  document.getElementById('themeToggle').addEventListener('click', ()=>{
-    document.body.classList.toggle('neon');
-  });
-
-  // ctrl+k open
-  document.addEventListener('keydown', (e)=>{
-    if((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k'){ e.preventDefault(); openCmd(); }
-    // numeric shortcuts
-    if(!e.ctrlKey && !e.metaKey){
-      if(e.key === '1') document.getElementById('visitSite').scrollIntoView({behavior:'smooth',block:'center'});
-      if(e.key === '2') document.getElementById('projects').scrollIntoView({behavior:'smooth',block:'center'});
+  let i=0;
+  function typeTitle(){
+    if(i < title.length){
+      typed.textContent += title[i++];
+      setTimeout(typeTitle, typingSpeed);
+    } else {
+      slowLine();
     }
-  });
+  }
 
-  cmdInput.addEventListener('keydown',(e)=>{
-    if(e.key === 'Escape'){ closeCmd(); }
-    if(e.key === 'Enter'){
-      const v = cmdInput.value.toLowerCase().trim();
-      if(v.includes('projects')) document.getElementById('projects').scrollIntoView({behavior:'smooth'});
-      if(v.includes('about') || v.includes('terminal')) document.getElementById('terminal').scrollIntoView({behavior:'smooth'});
-      if(v.includes('theme')) document.body.classList.toggle('neon');
+  const slowText = "developer • builder • experimenter";
+  let j=0;
+  function slowLine(){
+    if(j<slowText.length){
+      slow.textContent += slowText[j++];
+      setTimeout(slowLine, 40);
+    }
+  }
+
+  typeTitle();
+})();
+
+/* =========================================
+   TERMINAL BOOT SEQUENCE
+========================================= */
+(() => {
+  const line = document.getElementById("termLine");
+  const seq = [
+    "booting..",
+    "initializing renderer...",
+    "loading assets...",
+    "optimizing shaders...",
+    "done."
+  ];
+  let idx=0;
+  
+  function next(){
+    if(idx<seq.length){
+      // **FIXED:** Update the boot line with the full prompt format for consistency
+      line.innerHTML = `<span style="color:var(--accent)">${userName}@ag0d</span>:<span style="color:#6be0ff">${currentDir}</span>$ ${seq[idx++]}`;
+      setTimeout(next, 500);
+    } else {
+        // Line will be correctly formatted on the last step
+    }
+  }
+  setTimeout(next, 600);
+})();
+
+/* =========================================
+   COMMAND PALETTE + DICTIONARY
+========================================= */
+// **NEW:** Simulated file system for terminal commands
+const fileSystem = {
+    '/home/abhay': {
+        type: 'dir',
+        contents: ['README.md', 'website.html', 'simulation.js', 'minigames', 'my_code.py']
+    },
+    '/home/abhay/minigames': {
+        type: 'dir',
+        contents: ['snake.js', 'minesweeper.js', 'controls.txt']
+    },
+    '/': { type: 'dir', contents: ['home', 'bin', 'etc'] },
+    '/home': { type: 'dir', contents: ['abhay', 'guest'] },
+    '/bin': { type: 'dir', contents: ['ls', 'cd', 'clear', 'nano'] },
+    
+    // **NEW:** File content storage
+    'README.md': 'Hi, I\'m Abhay. This is a simulated terminal.\nType \'help\' for a list of commands.\nFiles can be added by the user using the upload feature.',
+    'website.html': 'This entire page is the website. It\'s one big file.\n(Over 1000 lines of HTML, CSS, and JS).',
+    'simulation.js': 'The background is a 2D N-body gravity simulation.\nIt tracks stars, black holes, and nebulae.\nToggle with particle_mode.',
+    'my_code.py': 'def is_awesome(person):\n  return person == "Abhay"\n\nif is_awesome("Abhay"):\n  print("True")',
+    'controls.txt': 'Snake: Arrow Keys\nMinesweeper: Left/Right Click\nAll games: Type \'close\' or press Esc to exit.'
+};
+
+// **NEW:** Global state for tracking current directory
+window.currentDir = '/home/abhay'; 
+
+const cmd = document.getElementById("cmd");
+const input = document.getElementById("cmdInput");
+const history = [];
+let historyIndex = -1;
+
+const availableCommands = [
+    'help', 'theme', 'neon', 'pause', 'resume', 'whoami', 
+    'ls [path]', 'cd [path]', 'clear', 'nano [file]', 
+    'snake', 'minesweeper', 'particle_mode [on|off]', 'close'
+];
+
+window.activeGame = null; // Global variable to track active game
+
+const commandDictionary = (command, args) => {
+    // If a game is active, 'close' is the primary command.
+    if (window.activeGame && command !== 'close' && command !== 'help' && command !== 'clear') {
+         customLog(`Please close the current game (${window.activeGame}) first by typing 'close' or pressing Esc.`, 'yellow');
+         return;
+    }
+
+    switch(command) {
+        case 'help':
+            customLog("Available commands:", "var(--accent)");
+            customLog(availableCommands.join(', '), "var(--muted)");
+            break;
+        case 'theme':
+        case 'neon':
+            toggleTheme();
+            customLog(`Neon theme toggled. State: ${document.body.classList.contains('neon') ? 'ON' : 'OFF'}`, 'cyan');
+            break;
+        case 'pause':
+            window.pauseSimulation();
+            break;
+        case 'resume':
+            window.unpauseSimulation();
+            break;
+        case 'whoami':
+            customLog("Abhay Godavarthy - High School Developer / A-G0D", 'white');
+            break;
+        case 'ls':
+            handleLs(args);
+            break;
+        case 'cd':
+            handleCd(args);
+            break;
+        case 'clear':
+            clearTerminal();
+            break;
+        case 'nano':
+            handleNano(args);
+            break;
+        case 'snake':
+            customLog("Starting Snake game. Use ARROW KEYS to move.", 'green');
+            startSnakeGame();
+            break;
+        case 'minesweeper':
+            customLog("Starting Minesweeper. Use MOUSE CLICKS (Left=Reveal, Right=Flag).", 'green');
+            startMinesweeperGame();
+            break;
+        case 'particle_mode':
+            const newState = args[0] ? args[0].toLowerCase() === 'on' : !window.particleMode;
+            window.toggleParticleMode(newState);
+            break;
+        case 'close':
+            if (window.activeGame) {
+                closeGame();
+            } else {
+                customLog('No active minigame to close.', 'yellow');
+            }
+            break;
+        default:
+            customLog(`Command not found: ${command}`, 'red');
+            break;
+    }
+};
+
+// **NEW:** Simulated nano editor function
+function handleNano(args) {
+    const filename = args[0];
+    if (!filename) {
+        customLog("Usage: nano [filename]", 'red');
+        return;
+    }
+
+    let filePath = filename;
+    if (!filename.startsWith('/')) {
+        filePath = (window.currentDir === '/') ? '/' + filename : window.currentDir + '/' + filename;
+    }
+
+    // Try to resolve file content
+    let content = fileSystem[filename] || fileSystem[filePath];
+
+    if (!content) {
+        customLog(`Error: File or directory '${filename}' does not exist.`, 'red');
+        return;
+    }
+    
+    if (content.type === 'dir') {
+        customLog(`Error: '${filename}' is a directory.`, 'red');
+        return;
+    }
+
+    const lines = content.split('\n');
+    let output = '';
+
+    output += `<div class="nano-editor">`;
+    output += `<div class="nano-header">GNU nano 4.8 - ${filename}</div>`;
+    
+    lines.forEach((line, index) => {
+        output += `<div class="nano-line">
+                       <span class="nano-line-num">${index + 1}</span>
+                       <span class="nano-text">${line.replace(/ /g, '&nbsp;')}</span>
+                   </div>`;
+    });
+
+    output += `<div class="nano-footer">^X Exit &nbsp;&nbsp;&nbsp; ^O Write Out &nbsp;&nbsp;&nbsp; ^G Get Help</div>`;
+    output += `</div>`;
+    
+    // Display in status box
+    statusBox.innerHTML = output;
+    statusBox.style.display = 'block';
+    window.activeGame = 'Nano'; // Treat nano as a temporary 'game' for Esc exit
+    
+    // **FIXED:** Removed the extra closing brace that caused the SyntaxError
+    cleanupMinigameListeners = () => {
+        // No specific listeners needed other than the global Esc handler
+    };
+}
+
+// **NEW:** Simulated ls function
+function handleLs(args) {
+    const target = args[0] || window.currentDir;
+    let path = target;
+    if (!path.startsWith('/')) {
+        path = (window.currentDir === '/') ? '/' + target : window.currentDir + '/' + target;
+    }
+    path = path.replace(/\/\.$/, window.currentDir); // handle 'ls .'
+
+    const dirEntry = fileSystem[path];
+
+    if (!dirEntry) {
+        customLog(`ls: cannot access '${target}': No such file or directory`, 'red');
+        return;
+    }
+
+    if (dirEntry.type !== 'dir') {
+        customLog(target, 'white');
+        return;
+    }
+
+    customLog(`Contents of ${path}:`, 'var(--muted)');
+    let output = '';
+    const contents = dirEntry.contents;
+
+    for (const item of contents) {
+        const itemPath = path === '/' ? '/' + item : path + '/' + item;
+        const entry = fileSystem[item] || fileSystem[itemPath];
+
+        if (entry && entry.type === 'dir') {
+            output += `  <span style="color:#6be0ff">${item}/</span> `;
+        } else {
+            output += `  ${item} `;
+        }
+    }
+    customLog(output, 'white');
+}
+
+// **NEW:** Simulated cd function
+function handleCd(args) {
+    const target = args[0] || '/home/abhay';
+
+    if (target === '..') {
+        if (window.currentDir === '/') {
+            customLog('Already at root directory.', 'yellow');
+            return;
+        }
+        const parts = window.currentDir.split('/');
+        parts.pop();
+        window.currentDir = parts.length > 1 ? parts.join('/') : '/';
+        customLog(`Changed directory to ${window.currentDir}`, 'var(--accent)');
+        return;
+    }
+
+    let newPath = target;
+    if (!newPath.startsWith('/')) {
+        newPath = (window.currentDir === '/') ? '/' + target : window.currentDir + '/' + target;
+    }
+    
+    newPath = newPath.replace(/\/\.$/g, ''); // Remove trailing /./ 
+    newPath = newPath.replace(/\/\//g, '/'); // Clean up double slashes
+    if (newPath === '') newPath = '/';
+
+    const dirEntry = fileSystem[newPath];
+
+    if (!dirEntry || dirEntry.type !== 'dir') {
+        customLog(`cd: no such file or directory: ${target}`, 'red');
+        return;
+    }
+
+    window.currentDir = newPath;
+    customLog(`Changed directory to ${window.currentDir}`, 'var(--accent)');
+}
+
+const open = ()=>{cmd.style.display="block";input.focus()};
+const closeCmd = ()=>{cmd.style.display="none";input.value=""};
+
+document.getElementById("cmdToggle").onclick=open;
+
+input.addEventListener("keydown", e=>{
+    if(e.key==="Escape") closeCmd();
+    
+    // History navigation
+    if (e.key === "ArrowUp") {
+        e.preventDefault();
+        if (historyIndex < history.length - 1) {
+            historyIndex++;
+            input.value = history[history.length - 1 - historyIndex];
+        }
+    } else if (e.key === "ArrowDown") {
+        e.preventDefault();
+        if (historyIndex > 0) {
+            historyIndex--;
+            input.value = history[history.length - 1 - historyIndex];
+        } else if (historyIndex === 0) {
+            historyIndex = -1;
+            input.value = '';
+        }
+    }
+    
+    if(e.key==="Enter"){
+      const fullCommand = input.value.trim();
+      if (!fullCommand) {
+          closeCmd();
+          return;
+      }
+      
+      const parts = fullCommand.toLowerCase().split(/\s+/);
+      const command = parts[0];
+      const args = parts.slice(1);
+      
+      commandDictionary(command, args);
+      
+      if (history.length === 0 || history[history.length - 1] !== fullCommand) {
+        history.push(fullCommand);
+      }
+      historyIndex = -1; 
+      
       closeCmd();
     }
-  });
-})();
+});
 
-/* =========================
-   Konami code for easter egg (↑ ↑ ↓ ↓ ← → ← → B A)
-   toggles neon theme + small confetti
-   ========================= */
+// **NEW:** Global Escape handler for minigames/nano
+document.addEventListener("keydown", e=>{
+    if (e.key === "Escape") {
+        if (window.activeGame) {
+            closeGame();
+            e.preventDefault(); 
+        } else if (cmd.style.display === "block") {
+            closeCmd();
+            e.preventDefault(); 
+        }
+    }
+    
+    if ((e.ctrlKey && e.key.toLowerCase()==="k") || e.key === "/") {
+      e.preventDefault();
+      open();
+    }
+});
+
+/* =========================================
+   MINIGAME LOGIC
+========================================= */
+
+const statusBox = document.getElementById('status-box');
+let cleanupMinigameListeners = () => {};
+
+function closeGame() {
+    statusBox.style.display = 'none';
+    cleanupMinigameListeners();
+    customLog(`${window.activeGame} game closed.`, 'yellow');
+    window.activeGame = null;
+}
+
+// **MINESWEEPER LOGIC**
+function startMinesweeperGame() {
+    window.activeGame = 'Minesweeper';
+    const size = 10;
+    const mines = 15;
+    let grid = Array(size).fill(0).map(() => Array(size).fill(' '));
+    let revealed = Array(size).fill(0).map(() => Array(size).fill(false));
+    let flagged = Array(size).fill(0).map(() => Array(size).fill(false));
+    let gameActive = true;
+    let minesPlaced = 0;
+
+    // Place mines
+    while (minesPlaced < mines) {
+        const r = Math.floor(rand(0, size));
+        const c = Math.floor(rand(0, size));
+        if (grid[r][c] !== '💣') {
+            grid[r][c] = '💣';
+            minesPlaced++;
+        }
+    }
+
+    // Calculate proximity numbers
+    for (let r = 0; r < size; r++) {
+        for (let c = 0; c < size; c++) {
+            if (grid[r][c] !== '💣') {
+                let count = 0;
+                for (let i = -1; i <= 1; i++) {
+                    for (let j = -1; j <= 1; j++) {
+                        const nr = r + i;
+                        const nc = c + j;
+                        if (nr >= 0 && nr < size && nc >= 0 && nc < size && grid[nr][nc] === '💣') {
+                            count++;
+                        }
+                    }
+                }
+                if (count > 0) grid[r][c] = count.toString();
+            }
+        }
+    }
+    
+    // Core Reveal Function
+    function revealCell(r, c) {
+        if (r < 0 || r >= size || c < 0 || c >= size || revealed[r][c] || !gameActive || flagged[r][c]) {
+            return;
+        }
+
+        revealed[r][c] = true;
+        
+        if (grid[r][c] === '💣') {
+            grid[r][c] = '💥';
+            gameActive = false;
+            customLog('BOOM! Minesweeper Game Over.', 'red');
+            renderMinesweeper();
+            return;
+        }
+
+        // Auto-reveal neighbors if cell is empty
+        if (grid[r][c] === ' ') {
+            for (let i = -1; i <= 1; i++) {
+                for (let j = -1; j <= 1; j++) {
+                    revealCell(r + i, c + j);
+                }
+            }
+        }
+        
+        // Check win condition
+        let nonMines = size * size - mines;
+        let revealedCount = revealed.flat().filter(x => x).length;
+        if (revealedCount === nonMines) {
+            gameActive = false;
+            customLog('SUCCESS! Minesweeper Cleared.', 'green');
+        }
+        renderMinesweeper();
+    }
+    
+    // Event Handler
+    const minesweeperClick = (e) => {
+        if (!gameActive) return;
+        const cell = e.target.closest('.cell');
+        if (!cell) return;
+
+        const r = parseInt(cell.dataset.r);
+        const c = parseInt(cell.dataset.c);
+        
+        if (e.button === 0) { // Left Click (Reveal)
+            if (!flagged[r][c]) {
+                revealCell(r, c);
+            }
+        } else if (e.button === 2) { // Right Click (Flag)
+            e.preventDefault();
+            if (!revealed[r][c]) {
+                flagged[r][c] = !flagged[r][c];
+                renderMinesweeper();
+            }
+        }
+    };
+    
+    // Setup Listeners
+    statusBox.addEventListener('click', minesweeperClick);
+    statusBox.addEventListener('contextmenu', minesweeperClick);
+    
+    cleanupMinigameListeners = () => {
+        statusBox.removeEventListener('click', minesweeperClick);
+        statusBox.removeEventListener('contextmenu', minesweeperClick);
+    };
+
+    // Render Grid
+    function renderMinesweeper() {
+        let output = "MINESWEEPER (10x10, 15 Mines)\nLeft Click: **Reveal** | Right Click: **Flag** | Cmd Palette: **close** or **Esc**\n\n";
+        output += `<div class="minesweeper-grid" style="--grid-size: ${size};">`;
+
+        for (let r = 0; r < size; r++) {
+            for (let c = 0; c < size; c++) {
+                let content = '';
+                let classes = 'cell';
+                
+                if (revealed[r][c]) {
+                    classes += ' revealed';
+                    if (grid[r][c] === '💣' || grid[r][c] === '💥') {
+                        content = grid[r][c];
+                    } else if (grid[r][c] !== ' ') {
+                        content = grid[r][c];
+                        classes += ' safe';
+                    } else {
+                        content = ' ';
+                    }
+                } else if (flagged[r][c]) {
+                    content = '🚩';
+                } else {
+                    content = ' ';
+                }
+
+                output += `<div class="${classes}" data-r="${r}" data-c="${c}" data-value="${grid[r][c] === ' ' ? '' : grid[r][c]}">${content}</div>`;
+            }
+        }
+        output += '</div>';
+        output += '\n' + (gameActive ? `Mines left: ${mines - flagged.flat().filter(x => x).length}` : (grid.flat().includes('💥') ? '<span style="color:red">GAME OVER!</span>' : '<span style="color:var(--accent)">YOU WIN!</span>'));
+        statusBox.innerHTML = output;
+        statusBox.style.display = 'block';
+    }
+    
+    renderMinesweeper();
+}
+
+// **SNAKE LOGIC**
+function startSnakeGame() {
+    window.activeGame = 'Snake';
+    const gridSize = 15;
+    let score = 0;
+    let gameActive = true;
+    let snake = [{x: 7, y: 7}];
+    let apple = {x: 3, y: 3};
+    let direction = 'right';
+    let lastDirection = 'right';
+    let interval;
+    
+    function placeApple() {
+        do {
+            apple.x = Math.floor(rand(0, gridSize));
+            apple.y = Math.floor(rand(0, gridSize));
+        } while (snake.some(segment => segment.x === apple.x && segment.y === apple.y));
+    }
+
+    const handleKeydown = (e) => {
+        if (!gameActive) return;
+
+        const key = e.key;
+        let newDirection = direction;
+        
+        // Only allow turns not 180 degrees
+        if (key === 'ArrowUp' && lastDirection !== 'down') newDirection = 'up';
+        else if (key === 'ArrowDown' && lastDirection !== 'up') newDirection = 'down';
+        else if (key === 'ArrowLeft' && lastDirection !== 'right') newDirection = 'left';
+        else if (key === 'ArrowRight' && lastDirection !== 'left') newDirection = 'right';
+
+        direction = newDirection;
+    };
+    
+    // Setup Listeners
+    document.addEventListener('keydown', handleKeydown);
+    
+    cleanupMinigameListeners = () => {
+        clearInterval(interval);
+        document.removeEventListener('keydown', handleKeydown);
+    };
+
+    function moveSnake() {
+        if (!gameActive) return;
+
+        let newHead = {x: snake[0].x, y: snake[0].y};
+        lastDirection = direction; // Lock direction until next move
+        
+        switch (direction) {
+            case 'up': newHead.y--; break;
+            case 'down': newHead.y++; break;
+            case 'left': newHead.x--; break;
+            case 'right': newHead.x++; break;
+        }
+
+        // Check collision with walls or self
+        if (newHead.x < 0 || newHead.x >= gridSize || newHead.y < 0 || newHead.y >= gridSize || snake.some(s => s.x === newHead.x && s.y === newHead.y)) {
+            gameActive = false;
+            customLog(`Snake hit a wall or itself! Final Score: ${score}`, 'red');
+            clearInterval(interval);
+            renderSnake();
+            return;
+        }
+
+        snake.unshift(newHead);
+
+        // Check collision with apple
+        if (newHead.x === apple.x && newHead.y === apple.y) {
+            score++;
+            placeApple();
+        } else {
+            snake.pop(); // Remove tail segment
+        }
+        renderSnake();
+    }
+    
+    interval = setInterval(moveSnake, 150); // Game speed
+    placeApple();
+    renderSnake();
+
+    function renderSnake() {
+        let output = `SNAKE GAME (${gridSize}x${gridSize})\nUse **ARROW KEYS** to move | Cmd Palette: **close** or **Esc**\nScore: <span style="color:var(--accent)">${score}</span>\n\n`;
+        output += `<div class="snake-grid" style="--grid-size: ${gridSize};">`;
+        
+        for (let y = 0; y < gridSize; y++) {
+            for (let x = 0; x < gridSize; x++) {
+                let classes = 'snake-cell';
+                let content = '';
+
+                if (snake[0].x === x && snake[0].y === y) {
+                    classes += ' snake-head';
+                } else if (snake.slice(1).some(s => s.x === x && s.y === y)) {
+                    classes += ' snake-body';
+                } else if (apple.x === x && apple.y === y) {
+                    classes += ' snake-apple';
+                    content = '🍎';
+                } else {
+                    content = '';
+                }
+
+                output += `<div class="${classes}">${content}</div>`;
+            }
+        }
+        output += '</div>';
+        output += '\n' + (gameActive ? `Current Direction: ${direction.toUpperCase()}` : '<span style="color:red">GAME OVER!</span>');
+        statusBox.innerHTML = output;
+        statusBox.style.display = 'block';
+    }
+}
+
+
+/* =========================================
+   THEME TOGGLE + KONAMI CODE
+========================================= */
+function toggleTheme(){
+  document.body.classList.toggle("neon");
+  if (document.body.classList.contains('neon')) {
+      localStorage.setItem('neonTheme', 'enabled');
+  } else {
+      localStorage.removeItem('neonTheme');
+  }
+}
+document.getElementById("themeToggle").onclick = toggleTheme;
+
 (() => {
-  const konami = [38,38,40,40,37,39,37,39,66,65];
-  let buffer = [];
-  addEventListener('keydown', (e)=>{
-    buffer.push(e.keyCode);
-    if(buffer.length > konami.length) buffer.shift();
-    if(buffer.join(',') === konami.join(',')){
-      document.body.classList.toggle('neon');
-      // small confetti: spawn bright comet-like streaks
-      for(let i=0;i<6;i++){
-        // create temporary comet visual as DOM element
-        const el = document.createElement('div');
-        el.style.position='fixed';
-        el.style.zIndex=9999;
-        el.style.left = (Math.random()*80+10)+'%';
-        el.style.top = (Math.random()*40+10)+'%';
-        el.style.width = '6px';
-        el.style.height = '6px';
-        el.style.borderRadius='3px';
-        el.style.background = 'linear-gradient(90deg,#00ff9d,#00aaff)';
-        el.style.transform = 'translateX(-50%)';
-        document.body.appendChild(el);
-        (function(u){
-          let t=0;
-          const anim = setInterval(()=>{
-            t++; el.style.transform = `translate(${t*8}px,${t*3}px) rotate(${t*10}deg)`;
-            if(t>40){ clearInterval(anim); el.remove(); }
-          },12);
-        })();
-      }
-      buffer = [];
+  const seq = ["ArrowUp","ArrowUp","ArrowDown","ArrowDown","ArrowLeft","ArrowRight","ArrowLeft","ArrowRight","b","a"];
+  let pos = 0;
+  document.addEventListener("keydown", e=>{
+    if(e.key === seq[pos]) pos++;
+    else pos = 0;
+    if(pos === seq.length){
+      toggleTheme();
+      pos = 0;
     }
   });
 })();
 
-/* =========================
-   Simple magnetic button hover effect
-   ========================= */
-(() => {
-  const btns = document.querySelectorAll('.site-button');
-  btns.forEach(btn => {
-    btn.addEventListener('mousemove', (e)=>{
-      const r = btn.getBoundingClientRect();
-      const dx = (e.clientX - (r.left + r.width/2));
-      const dy = (e.clientY - (r.top + r.height/2));
-      btn.style.transform = `translate(${dx*0.06}px, ${dy*0.03}px)`;
-    });
-    btn.addEventListener('mouseleave', ()=> btn.style.transform = '');
-  });
-})();
+/* =========================================
+   NAVIGATION HOTKEYS
+========================================= */
+document.getElementById("focusHome").onclick = ()=>document.querySelector(".hero").scrollIntoView({behavior:"smooth"});
+document.getElementById("focusProjects").onclick = ()=>document.getElementById("projects").scrollIntoView({behavior:"smooth"});
 
-/* =========================
-   Simple accessibility: allow focusing sections
-   ========================= */
-(() => {
-  document.getElementById('focusHome').addEventListener('click', ()=> document.querySelector('.hero').scrollIntoView({behavior:'smooth'}));
-  document.getElementById('focusProjects').addEventListener('click', ()=> document.getElementById('projects').scrollIntoView({behavior:'smooth'}));
-})();
+document.addEventListener("keydown", e=>{
+  if(e.target.tagName==="INPUT") return;
+  if(e.key==="1") document.getElementById("focusHome").click();
+  if(e.key==="2") document.getElementById("focusProjects").click();
+});
 
+/* =========================================
+   FLOATING LOGO IDLE MOTION
+========================================= */
+(() => {
+  const logo = document.getElementById("logo");
+  let t=0;
+  function animate(){
+    t+=0.01;
+    logo.style.transform = `translateY(${Math.sin(t)*4}px) scale(${1 + Math.sin(t*0.5) * 0.05})`;
+    
+    const hue = Math.floor(Math.atan2(window.innerHeight/2 - mouse.y, window.innerWidth/2 - mouse.x) * (180 / Math.PI));
+    logo.style.backgroundColor = `hsl(${hue + 180}, 70%, 15%)`;
+    
+    requestAnimationFrame(animate);
+  }
+  animate();
+})();
 </script>
 </body>
 </html>
